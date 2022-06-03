@@ -1,0 +1,30 @@
+{
+	"name": "electron-quick-start",
+	"version": "1.0.0",
+	"description": "A minimal Electron application",
+	"main": "main.js",
+	"scripts": {
+		"start": "electron .",
+		"build:sass": "./node_modules/sass/sass.default.dart.js ./style/scss/style.scss:./styles.css",
+		"watch:sass": "./node_modules/sass/sass.default.dart.js --watch ./style/scss/style.scss:./styles.css",
+		"watch": "npm run watch:sass & npm run start"
+	},
+	"repository": "https://github.com/electron/electron-quick-start",
+	"keywords": [
+		"Electron",
+		"quick",
+		"start",
+		"tutorial",
+		"demo"
+	],
+	"author": "GitHub",
+	"license": "MIT",
+	"devDependencies": {
+		"@yek/sass": "^3.2.0",
+		"electron": "^19.0.1",
+		"sass": "^1.52.2"
+	},
+	"dependencies": {
+		"sqlite3": "^5.0.8"
+	}
+}
