@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Login</title>
+		<link rel="stylesheet" type="text/css" href="./../style/styles.css" />
+		<style type="text/css">
+			html {
+				width: 100vw;
+				height: 100vh;
+				overflow: hidden;
+			}
+
+			body {
+				background-image: url('./../assets/images/login-background-image.png');
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-position: center;
+				background-origin: border-box;
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+
+				display: grid;
+				grid-template-rows: repeat(12, 1fr);
+				grid-template-columns: repeat(12, 1fr);
+				gap: 15px;
+			}
+
+			.logo {
+				position: fixed;
+				top: -10px;
+				left: calc(100% - 250px);
+				width: 200px;
+				height: 200px;
+			}
+
+			.logo__image {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+		</style>
+	</head>
+	<body>
+		<figure class="logo login__logo logo--login">
+			<img
+				class="logo__image"
+				src="./../assets/images/logo.png"
+				alt="logo"
+			/>
+			<figcaption style="display: none"></figcaption>
+		</figure>
+		<form class="login">
+			<fieldset class="login__content">
+				<legend style="display: none">ورود کاربر</legend>
+				<strong class="login__title">ورود کاربر</strong>
+
+				<label class="login__field login__field--username">
+					<span class="login__label"> نام کاربری </span>
+					<input
+						type="text"
+						class="login__input login__input--username"
+						placeholder="نام کاربری"
+					/>
+				</label>
+				<label class="login__field login__field--password">
+					<span class="login__label"> گذرواژه </span>
+					<input
+						type="password"
+						class="login__input login__input--password"
+						placeholder="گذرواژه"
+					/>
+				</label>
+				<button class="login__button">ورود</button>
+			</fieldset>
+		</form>
+	</body>
+</html>
