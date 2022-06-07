@@ -5,8 +5,8 @@
 	"main": "main.js",
 	"scripts": {
 		"start": "electron .",
-		"build:sass": "./node_modules/sass/sass.default.dart.js ./style/scss/style.scss:./styles.css",
-		"watch:sass": "./node_modules/sass/sass.default.dart.js --watch ./style/scss/style.scss:./styles.css",
+		"build:sass": "./node_modules/sass/sass.js ./style/scss/style.scss:./style/styles.css",
+		"watch:sass": "./node_modules/sass/sass.js --watch ./style/scss/style.scss:./style/styles.css",
 		"watch": "npm run watch:sass & npm run start"
 	},
 	"repository": "https://github.com/electron/electron-quick-start",
