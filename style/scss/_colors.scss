@@ -1,0 +1,21 @@
+$color-primary: #e8f0fd;
+$color-secondary: #1982c4;
+$color-secondary-25: rgba($color-secondary, 0.25);
+$color-secondary-50: rgba($color-secondary, 0.5);
+$color-accent: #f07167;
+$color-gray: rgb(#000000, 30%);
+$color-white: #ffffff;
+$color-black: #333333;
+
+@include set-root(
+	(
+		color-primary: $color-primary,
+		color-secondary: $color-secondary,
+		color-secondary-25: $color-secondary-25,
+		color-secondary-50: $color-secondary-50,
+		color-accent: $color-accent,
+		color-gray: $color-gray,
+		color-white: $color-white,
+		color-black: $color-black,
+	)
+);
