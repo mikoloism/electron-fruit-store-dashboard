@@ -25,6 +25,7 @@
 		"sass": "^1.52.2"
 	},
 	"dependencies": {
+		"normalize.css": "^8.0.1",
 		"sqlite3": "^5.0.8"
 	}
 }
