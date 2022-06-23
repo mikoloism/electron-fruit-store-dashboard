@@ -1,6 +1,10 @@
 {
 	"cSpell.words": [
+		"Bakh",
 		"yekan",
+		"الرحمن",
+		"الرحیم",
+		"الله",
 		"اینجا",
 		"اینچا",
 		"شوید",
@@ -9,5 +13,24 @@
 		"گذرواژه",
 		"وارد",
 		"ورود"
-	]
+	],
+	"files.exclude": {
+		"**/.git": true,
+		"**/.svn": true,
+		"**/.hg": true,
+		"**/CVS": true,
+		"**/.DS_Store": true,
+		"**/Thumbs.db": true,
+		"**/.classpath": true,
+		"**/.project": true,
+		"**/.settings": true,
+		"**/.factorypath": true,
+		"node_modules": true,
+		".vscode": true,
+		".gitignore": true,
+		"README.md": true,
+		"package-lock.json": true,
+		"**/.gitignore": true
+	},
+	"explorerExclude.backup": null
 }
