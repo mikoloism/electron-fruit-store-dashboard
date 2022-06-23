@@ -3293,3 +3293,6 @@ style/styles.css
 .gitignore
 style/styles.css.map
 style/styles.css
+node_modules/.bin/prebuild-install
+node_modules/.bin/rc
+node_modules/minipass/index.d.ts
