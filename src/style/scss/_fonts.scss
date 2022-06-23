@@ -1,0 +1,32 @@
+@mixin install-font($name, $path) {
+	@font-face {
+		font-family: '#{$name}';
+		src: url('#{$path}.eot'); /* IE9*/
+		src: url('#{$path}.eot?#iefix') format('embedded-opentype')
+				/* IE6-IE8 */,
+			url('#{$path}.woff2') format('woff2') /* chrome、firefox */,
+			url('#{$path}.woff') format('woff') /* chrome、firefox */,
+			url('#{$path}.ttf') format('truetype')
+				/* chrome、firefox、opera、Safari, Android, iOS 4.2+*/;
+	}
+}
+
+@function font($name, $type) {
+	@return var(--font-#{$name}-#{$type});
+}
+
+@mixin useFont($name, $type) {
+	font-family: font($name, $type), 'Roboto', serif;
+}
+
+@function yekanPath($type) {
+	@return 'public/assets/fonts/Yekan Bakh/#{$type}/YekanBakh-#{$type}';
+}
+
+@include install-font('yekan-bakh-light', yekanPath('Light'));
+@include install-font('yekan-bakh-regular', yekanPath('Regular'));
+@include install-font('yekan-bakh-medium', yekanPath('Medium'));
+@include install-font('yekan-bakh-bold', yekanPath('Bold'));
+@include install-font('yekan-bakh-heavy', yekanPath('Heavy'));
+@include install-font('yekan-bakh-fat', yekanPath('Fat'));
+// @import url('https://fonts.googleapis.com/css?family=Laila:wgh@300;400;500;600;700&display=swap');
