@@ -1,5 +1,10 @@
-const QUERY = {
-	CREATE: `
+const { link, db } = require('./connect.js');
+
+class Fruit {
+	constructor() {}
+
+	QUERY = {
+		CREATE: `
 	CREATE TABLE IF NOT EXISTS Fruit (
 		id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 		name TEXT,
@@ -7,21 +12,24 @@ const QUERY = {
 		quantity REAL DEFAULT 0,
 		image TEXT
 	)`,
-	INSERT: `INSERT INTO Fruit (name, cost, quantity, image) VALUES (?, ?, ?, ?)`,
-	UPDATE: {
-		ALL: `UPDATE Fruit SET name = ?, cost = ?, quantity = ?, image = ? WHERE id = ?`,
-		NAME: `UPDATE Fruit SET name = ? WHERE id = ?`,
-		COST: `UPDATE Fruit SET cost = ? WHERE id = ?`,
-		QUANTITY: `UPDATE Fruit SET quantity = ? WHERE id = ?`,
-		IMAGE: `UPDATE Fruit SET image = ? WHERE id = ?`,
-	},
-	SELECT: {
-		ALL: `SELECT * FROM Fruit`,
-		BY_ID: `SELECT * FROM Fruit WHERE id = ?`,
-	},
-	DELETE: `DELETE FROM Fruit WHERE id = ?`,
-	DROP: `DROP TABLE IF EXISTS Fruit`,
-};
+		INSERT: `INSERT INTO Fruit (name, cost, quantity, image) VALUES (?, ?, ?, ?)`,
+		UPDATE: {
+			ALL: `UPDATE Fruit SET name = ?, cost = ?, quantity = ?, image = ? WHERE id = ?`,
+			NAME: `UPDATE Fruit SET name = ? WHERE id = ?`,
+			COST: `UPDATE Fruit SET cost = ? WHERE id = ?`,
+			QUANTITY: `UPDATE Fruit SET quantity = ? WHERE id = ?`,
+			IMAGE: `UPDATE Fruit SET image = ? WHERE id = ?`,
+		},
+		SELECT: {
+			ALL: `SELECT * FROM Fruit`,
+			BY_ID: `SELECT * FROM Fruit WHERE id = ?`,
+		},
+		DELETE: `DELETE FROM Fruit WHERE id = ?`,
+		DROP: `DROP TABLE IF EXISTS Fruit`,
+	};
+
+	init() {}
+}
 
 module.exports.query = QUERY;
 module.exports.init = function () {
