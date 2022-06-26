@@ -5,8 +5,8 @@
 	"main": "main.js",
 	"scripts": {
 		"start": "electron .",
-		"sass:build": "./node_modules/sass/sass.js ./src/style/main.scss:./public/styles.css",
-		"sass:watch": "./node_modules/sass/sass.js --watch ./src/style/main.scss:./public/styles.css",
+		"sass:build": "./node_modules/sass/sass.js ./src/style/main.scss:./public/css/style.css",
+		"sass:watch": "./node_modules/sass/sass.js --watch ./src/style/main.scss:./public/css/style.css",
 		"watch": "npm run sass:watch & npm run start",
 		"dev": "npm run watch"
 	},
@@ -27,6 +27,7 @@
 	},
 	"dependencies": {
 		"@mapbox/node-pre-gyp": "^1.0.9",
+		"express": "^4.18.1",
 		"lodash": "^4.17.21",
 		"normalize.css": "^8.0.1",
 		"sqlite3": "^5.0.8",
