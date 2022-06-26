@@ -24,12 +24,22 @@ class Router {
 		return this.handleLocationUpdate();
 	}
 
+	isRoute(value) {
+		return RegExp(/.html$/, 'gi').test(value);
+	}
+
 	async handleLocationUpdate() {
 		const currentPath = window.location.pathname;
 		const currentRoute = currentPath
 			? this.ROUTES[currentPath]
 			: this.ROUTES[404];
 
+		// if is redirected and path isn't file
+		if (this.isRoute(currentRoute)) {
+			return window.history.pushState({}, '', currentRoute);
+		}
+
+		// if currentRoute is page view file
 		const viewContent = await fetch(currentRoute)
 			.then((res) => res.text())
 			.catch((error) => new Error(error));
