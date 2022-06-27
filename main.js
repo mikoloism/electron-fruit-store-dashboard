@@ -12,7 +12,7 @@ function createWindow() {
 		// frame: false,
 		autoHideMenuBar: true,
 		webPreferences: {
-			preload: path.join(__dirname, 'src', 'preload.js'),
+			preload: path.join(__dirname, 'preload.js'),
 		},
 	});
 	mainWindow.webContents.openDevTools();
