@@ -5,19 +5,17 @@
 		<meta charset="UTF-8" />
 		<meta
 			http-equiv="Content-Security-Policy"
-			content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'"
+			content="default-src 'self'; img-src 'self' data: blob:; script-src 'self'; style-src 'self' https://fonts.googleapis.com https://cdn.jsdelivr.net/; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net data: blob:;"
 		/>
-		<link
-			rel="stylesheet"
-			href="./../node_modules/normalize.css/normalize.css"
-		/>
-		<link rel="stylesheet" href="./css/style.css" />
+
+		<link rel="stylesheet" href="static/css/normalize.css" />
+		<link rel="stylesheet" href="static/css/style.css" />
 		<title id="current-page-title">Fruit Dashboard</title>
 	</head>
 	<body>
 		<div id="app">
 			<h2>Loading...</h2>
 		</div>
-		<script type="module" src="./js/renderer.js"></script>
+		<script src="static/js/renderer.js"></script>
 	</body>
 </html>
