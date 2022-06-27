@@ -20,7 +20,7 @@
 }
 
 @function yekanPath($type) {
-	@return 'public/assets/fonts/Yekan Bakh/#{$type}/YekanBakh-#{$type}';
+	@return '../../../static/assets/fonts/Yekan Bakh/#{$type}/YekanBakh-#{$type}';
 }
 
 @include install-font('yekan-bakh-light', yekanPath('Light'));
@@ -30,3 +30,14 @@
 @include install-font('yekan-bakh-heavy', yekanPath('Heavy'));
 @include install-font('yekan-bakh-fat', yekanPath('Fat'));
 // @import url('https://fonts.googleapis.com/css?family=Laila:wgh@300;400;500;600;700&display=swap');
+
+@include set-root(
+	(
+		font-yekan-light: 'yekan-bakh-light',
+		font-yekan-regular: 'yekan-bakh-regular',
+		font-yekan-medium: 'yekan-bakh-medium',
+		font-yekan-bold: 'yekan-bakh-bold',
+		font-yekan-heavy: 'yekan-bakh-heavy',
+		font-yekan-fat: 'yekan-bakh-fat',
+	)
+);
