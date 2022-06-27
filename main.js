@@ -1,7 +1,7 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
-const server = require('./src/server.js');
+const server = require('./server.js');
 
 function createWindow() {
 	// Create the browser window.
@@ -12,13 +12,14 @@ function createWindow() {
 		// frame: false,
 		autoHideMenuBar: true,
 		webPreferences: {
-			preload: path.join(__dirname, 'src', 'scripts', 'preload.js'),
+			preload: path.join(__dirname, 'src', 'preload.js'),
 		},
 	});
 	mainWindow.webContents.openDevTools();
 
 	// and load the index.html of the app.
-	server().then((serverPort) => {
+	server.app().then((serverPort) => {
+		server.api();
 		mainWindow.loadURL(`http://127.0.0.1:${serverPort}`);
 	});
 
