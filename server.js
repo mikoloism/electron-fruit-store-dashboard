@@ -1,26 +1,35 @@
 const express = require('express');
 const path = require('path');
-const viewRouter = require('./src/router/view.js');
-const apiRouter = require('./src/router/api.js');
+const router = require('./src/router.js');
 
 const app = express();
 
-app.use('/static', express.static(__dirname + '/public'));
-app.use(
-	'/static/css',
-	express.static(__dirname + '/node_modules/normalize.css'),
+// declare constant
+const SERVER_PORT = 3000;
+const STATIC_PUBLIC = express.static(__dirname + '/public');
+const STATIC_VIEWS = express.static(__dirname + '/src/pages');
+const STATIC_NORMALIZE_CSS = express.static(
+	__dirname + '/node_modules/normalize.css',
 );
 
-app.use('/view', viewRouter);
-app.use('/api', apiRouter);
+// setup statics
+app.use('/static', STATIC_PUBLIC);
+app.use('/static/css', STATIC_NORMALIZE_CSS);
+app.use('/view', STATIC_VIEWS);
 
-const SERVER_PORT = 3000;
-module.exports.app = () =>
-	new Promise((resolve, reject) => {
+// setup api and routers
+app.use('/api', router);
+
+// server handler
+function handleServer() {
+	return new Promise((resolve, reject) => {
 		return app.listen(SERVER_PORT, () => {
 			console.log(
-				`[MAIN_SERVER] : listening on http://127.0.0.1:${SERVER_PORT}`,
+				`[SERVER] : listening on http://127.0.0.1:${SERVER_PORT}`,
 			);
 			return resolve(SERVER_PORT, app);
 		});
 	});
+}
+
+module.exports.app = handleServer;
