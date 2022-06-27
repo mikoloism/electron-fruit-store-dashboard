@@ -6,7 +6,7 @@
 	"scripts": {
 		"start": "electron .",
 		"sass:build": "./node_modules/sass/sass.js ./src/style/main.scss:./public/css/style.css",
-		"sass:watch": "./node_modules/sass/sass.js --watch ./src/style/main.scss:./public/css/style.css",
+		"sass:watch": "./node_modules/sass/sass.js --watch ./src/style/:./public/css/",
 		"watch": "npm run sass:watch & npm run start",
 		"dev": "npm run watch"
 	},
