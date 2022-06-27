@@ -1,0 +1,99 @@
+.login {
+	@include radius(35);
+	@include clear-space;
+	grid-column: 7 / 12;
+	grid-row: 3 / 12;
+	@include size(550px, 700px);
+	backdrop-filter: blur(10px);
+	background-image: url('./../../assets/images/noise-background.png');
+	background-color: color(secondary-25);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+
+	&__content {
+		@include clear-space;
+		@include size(550px, 700px);
+		border: 0;
+		direction: rtl;
+		display: grid;
+		row-gap: 50px;
+		grid-auto-flow: row;
+		grid-template-rows: repeat(4, 100px);
+		grid-template-columns: repeat(12, 1fr);
+		place-content: center;
+		place-items: center;
+	}
+
+	&__title {
+		@include clear-space;
+		@include size(450px, 100px);
+		grid-column: 1/13;
+		grid-row: 1;
+		font-size: 64px;
+		font-weight: bold;
+		font-family: font(yekan, bold);
+		@include center;
+		justify-content: flex-start;
+		color: color(white);
+	}
+
+	&__field {
+		@include size(450px, 100px);
+		@include center;
+		justify-content: space-between;
+
+		&--username {
+			grid-row: 2;
+			grid-column: 1/13;
+		}
+
+		&--password {
+			grid-row: 3;
+			grid-column: 1/13;
+		}
+	}
+
+	&__label {
+		display: block;
+		font : {
+			size: 24px;
+			family: font(yekan, bold);
+			weight: bold;
+		}
+		padding: 0 15px;
+		color: color(secondary);
+		@include size(100%, 40px);
+	}
+
+	&__input {
+		@include clear-input;
+		@include size(100%, 60px);
+		color: color(secondary);
+		@include radius(15);
+		padding: 0 15px;
+
+		&,
+		&::placeholder {
+			font-size: 24px;
+			font-family: font(yekan, regular);
+		}
+
+		&::placeholder {
+			color: color(secondary-50);
+		}
+	}
+
+	&__button {
+		@include clear-button;
+		color: color(white);
+		font-size: 32px;
+		font-weight: bold;
+		font-family: font(yekan, bold);
+		grid-row: 4;
+		grid-column: 1 / 13;
+		background: color(secondary);
+		@include radius(15);
+		@include size(450px, 85px);
+	}
+}
