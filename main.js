@@ -18,9 +18,8 @@ function createWindow() {
 	mainWindow.webContents.openDevTools();
 
 	// and load the index.html of the app.
-	server.app().then((serverPort) => {
-		server.api();
-		mainWindow.loadURL(`http://127.0.0.1:${serverPort}`);
+	server().then((serverPort) => {
+		mainWindow.loadURL(`http://127.0.0.1:${serverPort}/`);
 	});
 
 	// Open the DevTools.

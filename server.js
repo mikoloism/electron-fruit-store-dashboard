@@ -31,4 +31,4 @@ function handleServer() {
 	});
 }
 
-module.exports.app = handleServer;
+module.exports = handleServer;
