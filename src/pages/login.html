@@ -20,7 +20,7 @@
 			/>
 			<figcaption style="display: none"></figcaption>
 		</figure>
-		<form class="login">
+		<form class="login" method="post" action="../api/login">
 			<fieldset class="login__content">
 				<legend style="display: none">ورود کاربر</legend>
 				<strong class="login__title">ورود کاربر</strong>
@@ -29,6 +29,7 @@
 					<span class="login__label"> نام کاربری </span>
 					<input
 						type="text"
+						id="login-username"
 						class="login__input login__input--username"
 						placeholder="نام کاربری"
 					/>
@@ -37,11 +38,14 @@
 					<span class="login__label"> گذرواژه </span>
 					<input
 						type="password"
+						id="login-password"
 						class="login__input login__input--password"
 						placeholder="گذرواژه"
 					/>
 				</label>
-				<button class="login__button">ورود</button>
+				<button type="button" id="login-button" class="login__button">
+					ورود
+				</button>
 			</fieldset>
 		</form>
 	</body>
