@@ -27,7 +27,6 @@
 	},
 	"dependencies": {
 		"@mapbox/node-pre-gyp": "^1.0.9",
-		"axios": "^0.27.2",
 		"express": "^4.18.1",
 		"jquery": "^3.6.0",
 		"lodash": "^4.17.21",

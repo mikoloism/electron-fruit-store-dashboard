@@ -1,24 +1,38 @@
-import axios from 'axios';
-import $ from 'jquery';
+'use strict';
 
-// api constant and method
-const api = axios.create({});
-
-// login page selectors
-const $login = {
-	button: $('#login-button'),
-	username: $('#login-username'),
-	password: $('#login-password'),
-};
-
-// dashboard page selectors
-const $dashboard = {};
+import * as $ from '../../static/js/jquery/dist/jquery.min.js';
 
 (function () {
+	// api constant and method
+	const BASE_API = `http://localhost:3000/api`;
+	const api = (url) => `${BASE_API}${url}`;
+
+	// authorization global state
+	const auth = {
+		username: undefined,
+		password: undefined,
+	};
+
+	// login page selectors
+	const $login = {
+		button: $('#login-button'),
+		username: $('#login-username'),
+		password: $('#login-password'),
+	};
+
+	// dashboard page selectors
+	const $dashboard = {};
+
 	$login.button.on('click', () => {
-		api.post('/login', {
-			username: $login.username.val(),
-			password: $login.password.val(),
-		});
+		console.log('clicked');
+		fetch(api('/login'), {
+			method: 'POST',
+			body: {
+				username: $login.username.val(),
+				password: $login.password.val(),
+			},
+		})
+			.then((res) => console.log(res))
+			.catch((err) => console.log(err));
 	});
 })();
