@@ -1,8 +1,6 @@
 'use strict';
 
-import * as $ from '../../static/js/jquery/dist/jquery.min.js';
-
-(function () {
+jQuery(document).ready(function ($) {
 	// api constant and method
 	const BASE_API = `http://localhost:3000/api`;
 	const api = (url) => `${BASE_API}${url}`;
@@ -35,4 +33,4 @@ import * as $ from '../../static/js/jquery/dist/jquery.min.js';
 			.then((res) => console.log(res))
 			.catch((err) => console.log(err));
 	});
-})();
+});
