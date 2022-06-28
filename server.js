@@ -3,17 +3,16 @@ const path = require('path');
 const router = require('./src/router/index.js');
 
 const app = express();
+const pkg = (name) => __dirname + `/node_modules/${name}`;
 
 // declare constant
 const SERVER_PORT = 3000;
 const STATIC_PUBLIC = express.static(__dirname + '/public');
-const STATIC_NORMALIZE_CSS = express.static(
-	__dirname + '/node_modules/normalize.css',
-);
+const STATIC_NORMALIZE_CSS = express.static(pkg('normalize.css'));
 
 // setup statics
 app.use('/static', STATIC_PUBLIC);
-app.use('/static/css', STATIC_NORMALIZE_CSS);
+app.use('/static/css/normalize', STATIC_NORMALIZE_CSS);
 
 // setup api and routers
 app.use('/api', router.api);
