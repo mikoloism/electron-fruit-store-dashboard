@@ -9,10 +9,12 @@ const pkg = (name) => __dirname + `/node_modules/${name}`;
 const SERVER_PORT = 3000;
 const STATIC_PUBLIC = express.static(__dirname + '/public');
 const STATIC_NORMALIZE_CSS = express.static(pkg('normalize.css'));
+const STATIC_JQUERY = express.static(pkg('jquery'));
 
 // setup statics
 app.use('/static', STATIC_PUBLIC);
 app.use('/static/css/normalize', STATIC_NORMALIZE_CSS);
+app.use('/static/js/jquery', STATIC_JQUERY);
 
 // setup api and routers
 app.use('/api', router.api);
