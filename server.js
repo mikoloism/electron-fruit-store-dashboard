@@ -1,9 +1,15 @@
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 const router = require('./src/router/index.js');
 
 const app = express();
 const pkg = (name) => __dirname + `/node_modules/${name}`;
+
+// setup middleware
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // declare constant
 const SERVER_PORT = 3000;
