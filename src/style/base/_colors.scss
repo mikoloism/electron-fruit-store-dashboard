@@ -6,6 +6,7 @@ $color-accent: #f07167;
 $color-gray: rgb(#000000, 30%);
 $color-white: #ffffff;
 $color-black: #333333;
+$color-black-30: rgb(#000000, 30%);
 
 @include set-root(
 	(
@@ -17,5 +18,6 @@ $color-black: #333333;
 		color-gray: $color-gray,
 		color-white: $color-white,
 		color-black: $color-black,
+		color-black-30: $color-black-30,
 	)
 );
