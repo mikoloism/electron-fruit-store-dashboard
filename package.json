@@ -9,7 +9,7 @@
 		"server:watch": "nodemon ./dev.server.js",
 		"sass:build": "./node_modules/sass/sass.js ./src/style/:./public/css/",
 		"sass:watch": "./node_modules/sass/sass.js --watch ./src/style/:./public/css/",
-		"watch": "npm run sass:watch & npm run server:watch & npm run start",
+		"watch": "npm run sass:watch & npm run server:watch",
 		"dev": "npm run watch"
 	},
 	"repository": "https://github.com/electron/electron-quick-start",
