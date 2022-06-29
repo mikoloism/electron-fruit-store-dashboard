@@ -8,61 +8,58 @@ class User {
 		return User.isLoggedIn;
 	}
 	static getIsLoggedIn(req, res) {
-		if (User.isLoggedIn) {
-			return res.send({
-				isLoggedIn: true,
-				message: 'You are logged in',
-				target: [],
-			});
-		}
-
-		return res.send({
-			isLoggedIn: false,
-			message: 'You are not logged in',
-			target: [],
-		});
+		return (
+			res
+				// .sendStatus(User.isLoggedIn ? 200 : 401)
+				.send({
+					status: User.isLoggedIn ? 200 : 401,
+					method: 'GET',
+					path: '/api/login',
+					data: {
+						isLoggedIn: User.isLoggedIn,
+						message: User.isLoggedIn ? 'LOGGED_IN' : 'LOGGED_OUT',
+					},
+				})
+				.end()
+		);
 	}
 
 	static login(req, res) {
-		const { username, password } = req.body || {
-			username: '',
-			password: '',
-		};
-		if (username === DEFAULT_USERNAME) {
-			if (password === DEFAULT_PASSWORD) {
-				User.setIsLoggedIn(true);
-				return res.send({
-					isLoggedIn: true,
-					message: 'You are logged in',
-					target: [],
-				});
-			}
-
-			// else : password is incorrect
-			User.setIsLoggedIn(false);
-			return res.send({
-				isLoggedIn: false,
-				message: 'Password is incorrect',
-				target: ['password'],
-			});
-		}
-
-		// else : username and password are incorrect
-		User.setIsLoggedIn(false);
-		return res.send({
-			isLoggedIn: false,
-			message: 'Username or Password is incorrect',
-			target: ['username', 'password'],
-		});
+		const { username, password } = req.body;
+		const checkLogin = () =>
+			username === DEFAULT_USERNAME && password === DEFAULT_PASSWORD;
+		const currentState = checkLogin();
+		User.setIsLoggedIn(currentState);
+		return (
+			res
+				// .sendStatus(currentState ? 200 : 401)
+				.send({
+					status: currentState ? 200 : 401,
+					method: 'POST',
+					path: '/api/login',
+					data: {
+						isLoggedIn: currentState,
+						message: currentState ? 'LOGGED_IN' : 'LOGGED_IN_FAIL',
+						username,
+						password,
+					},
+				})
+				.end()
+		);
 	}
 
 	static logout() {
 		User.setIsLoggedIn(false);
-		return res.send({
-			isLoggedIn: false,
-			message: 'User Logged Out',
-			target: [],
-		});
+		return res
+			.send({
+				status: 200,
+				method: req.method,
+				data: {
+					isLoggedIn: false,
+					message: 'LOGGED_OUT_SUCCESSFUL',
+				},
+			})
+			.end();
 	}
 }
 
