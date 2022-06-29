@@ -7,7 +7,7 @@ html {
 }
 
 body {
-	background-image: url('../../assets/images/login-background-image.png');
+	background-image: url('/static/assets/images/background.png');
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
@@ -19,15 +19,14 @@ body {
 	display: grid;
 	grid-template-rows: repeat(12, 1fr);
 	grid-template-columns: repeat(12, 1fr);
-	gap: 15px;
+	gap: 10px;
+	padding: 30px;
 }
 
 .logo {
 	position: fixed;
-	top: -10px;
-	left: calc(100% - 250px);
-	width: 200px;
-	height: 200px;
+	top: 15px;
+	left: calc(100% - 300px);
 }
 
 .logo__image {
@@ -39,23 +38,19 @@ body {
 .login {
 	@include radius(35);
 	@include clear-space;
-	grid-column: 7 / 12;
-	grid-row: 3 / 12;
-	@include size(550px, 700px);
+	grid-column: 4 / 9;
+	grid-row: 1 / 13;
 	backdrop-filter: blur(10px);
-	background-image: url('../../assets/images/noise-background.png');
-	background-color: color(secondary-25);
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center;
+	background-color: color(black-30);
 
 	&__content {
 		@include clear-space;
-		@include size(550px, 700px);
+		height: 100%;
 		border: 0;
 		direction: rtl;
 		display: grid;
-		row-gap: 50px;
+		row-gap: 64px;
+		padding: 0 64px;
 		grid-auto-flow: row;
 		grid-template-rows: repeat(4, 100px);
 		grid-template-columns: repeat(12, 1fr);
@@ -65,7 +60,7 @@ body {
 
 	&__title {
 		@include clear-space;
-		@include size(450px, 100px);
+		width: 100%;
 		grid-column: 1/13;
 		grid-row: 1;
 		font-size: 64px;
@@ -77,8 +72,9 @@ body {
 	}
 
 	&__field {
-		@include size(450px, 100px);
+		width: 100%;
 		@include center;
+		row-gap: 10px;
 		justify-content: space-between;
 
 		&--username {
@@ -95,19 +91,19 @@ body {
 	&__label {
 		display: block;
 		font : {
-			size: 24px;
+			size: 28px;
 			family: font(yekan, bold);
 			weight: bold;
 		}
 		padding: 0 15px;
-		color: color(secondary);
+		color: color(white);
 		@include size(100%, 40px);
 	}
 
 	&__input {
 		@include clear-input;
 		@include size(100%, 60px);
-		color: color(secondary);
+		color: color(black-30);
 		@include radius(15);
 		padding: 0 15px;
 
@@ -118,7 +114,7 @@ body {
 		}
 
 		&::placeholder {
-			color: color(secondary-50);
+			color: color(black-30);
 		}
 	}
 
@@ -132,6 +128,7 @@ body {
 		grid-column: 1 / 13;
 		background: color(secondary);
 		@include radius(15);
-		@include size(450px, 85px);
+		width: 100%;
+		padding: 15px;
 	}
 }
