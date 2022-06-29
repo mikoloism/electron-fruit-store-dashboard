@@ -31,7 +31,14 @@
 		".gitignore": true,
 		"README.md": true,
 		"package-lock.json": true,
-		"**/.gitignore": true
+		"**/.gitignore": true,
+		"package.json": true,
+		"src/controller": true,
+		"src/model": true,
+		"dev.server.js": true,
+		"main.js": true,
+		"server.js": true,
+		"public/css": true
 	},
 	"explorerExclude.backup": null
 }
