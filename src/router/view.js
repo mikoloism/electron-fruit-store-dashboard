@@ -4,20 +4,16 @@ const UserController = require('../controller/User.js');
 
 // helper functions
 const isLoggedIn = () => UserController.isLoggedIn;
-const isLoginView = (path) => {
-	const regex = new RegExp('//login', 'gi');
-	return regex.test(path);
-};
-const checkView = (req, res, next) => {
-	if (!UserController.isLoggedIn) {
+function checkLoggedIn(req, res, next) {
+	if (!isLoggedIn()) {
 		res.redirect('/view/login');
 		return;
-	} else {
-		return next();
 	}
-};
-const page = (HTMLFile) =>
-	path.join(__dirname, '..', 'pages', `${HTMLFile}.html`);
+	return next();
+}
+function page(HTMLFile) {
+	return path.join(__dirname, '..', 'pages', `${HTMLFile}.html`);
+}
 
 // declare constant file path
 const VIEW_LOGIN = page('login');
@@ -31,9 +27,9 @@ router.use((req, res, next) => {
 });
 
 // view-router endpoint
-router.get('/', checkView);
+router.get('/', checkLoggedIn);
 router.get('/login', (req, res) => res.view(VIEW_LOGIN));
-router.get('/dashboard', checkView, (req, res) => res.view(VIEW_DASHBOARD));
+router.get('/dashboard', checkLoggedIn, (req, res) => res.view(VIEW_DASHBOARD));
 router.all('*', (req, res) => res.status(404).view(VIEW_404));
 
 module.exports = router;
