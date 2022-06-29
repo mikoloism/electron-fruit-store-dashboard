@@ -4,4 +4,6 @@ const Fruit = require('./Fruit.js');
 
 module.exports = {
 	User,
+	Fruit,
+	Customer,
 };
