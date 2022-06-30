@@ -8,19 +8,19 @@
 		<link
 			rel="stylesheet"
 			type="text/css"
-			href="static/css/pages/login.css"
+			href="/static/css/pages/login.css"
 		/>
 	</head>
 	<body>
 		<figure class="logo login__logo logo--login">
 			<img
 				class="logo__image"
-				src="static/assets/images/logo.png"
+				src="/static/assets/images/logo.png"
 				alt="logo"
 			/>
 			<figcaption style="display: none"></figcaption>
 		</figure>
-		<form class="login" method="post" action="../api/login">
+		<form class="login" id="login-form">
 			<fieldset class="login__content">
 				<legend style="display: none">ورود کاربر</legend>
 				<strong class="login__title">ورود کاربر</strong>
@@ -43,12 +43,12 @@
 						placeholder="گذرواژه"
 					/>
 				</label>
-				<button type="button" id="login-button" class="login__button">
+				<button type="submit" id="login-button" class="login__button">
 					ورود
 				</button>
 			</fieldset>
 		</form>
-		<script src="static/js/jquery/dist/jquery.js"></script>
-		<script type="module" src="static/js/renderer.js"></script>
+		<script src="/static/js/jquery/dist/jquery.js"></script>
+		<script type="module" src="/static/js/renderer.js"></script>
 	</body>
 </html>
