@@ -1,9 +1,29 @@
 'use strict';
 
-jQuery(document).ready(function ($) {
-	// api constant and method
-	const BASE_API = `http://localhost:3000/api`;
-	const api = (url) => `${BASE_API}${url}`;
+// api constant and method
+const BASE_API = `http://localhost:3000/api`;
+const api = {
+	post(endpoint, body) {
+		return fetch(`${BASE_API}${endpoint}`, {
+			method: 'POST',
+			body: JSON.stringify(body),
+			headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+		});
+	},
+	get(endpoint) {
+		return fetch(`${BASE_API}${endpoint}`);
+	},
+	put(endpoint, body) {
+		return fetch(`${BASE_API}${endpoint}`, {
+			method: 'PUT',
+			body: JSON.stringify(body),
+			headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+		});
+	},
+	remove(endpoint) {
+		return fetch(`${BASE_API}${endpoint}`, { method: 'DELETE' });
+	},
+};
 
 	// authorization global state
 	const auth = {
