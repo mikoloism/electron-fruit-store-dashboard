@@ -39,40 +39,45 @@ class User {
 
 	static login(req, res) {
 		const { username, password } = req.body;
-		const checkLogin = () =>
+		const isLoggedIn =
 			username === DEFAULT_USERNAME && password === DEFAULT_PASSWORD;
-		const currentState = checkLogin();
-		User.setIsLoggedIn(currentState, username, password);
-		return (
-			res
-				// .sendStatus(currentState ? 200 : 401)
-				.send({
-					status: currentState ? 200 : 401,
-					method: 'POST',
-					path: '/api/login',
-					data: {
-						isLoggedIn: currentState,
-						message: currentState ? 'LOGGED_IN' : 'LOGGED_IN_FAIL',
-						username,
-						password,
-					},
-				})
-				.end()
-		);
+
+		if (isLoggedIn) {
+			User.setIsLoggedIn(isLoggedIn, username, password);
+			return res.send({
+				status: 200,
+				method: 'POST',
+				path: '/api/login',
+				data: {
+					isLoggedIn: isLoggedIn,
+					message: 'LOGGED_IN',
+					username: username,
+					password: password,
+				},
+			});
+		}
+
+		return res.send({
+			status: 401,
+			method: 'POST',
+			path: '/api/login',
+			data: {
+				isLoggedIn: isLoggedIn,
+				message: 'LOGGED_IN_FAIL',
+			},
+		});
 	}
 
 	static logout() {
 		User.setIsLoggedIn(false);
-		return res
-			.send({
-				status: 200,
-				method: req.method,
-				data: {
-					isLoggedIn: false,
-					message: 'LOGGED_OUT_SUCCESSFUL',
-				},
-			})
-			.end();
+		return res.send({
+			status: 200,
+			method: req.method,
+			data: {
+				isLoggedIn: false,
+				message: 'LOGGED_OUT_SUCCESSFUL',
+			},
+		});
 	}
 }
 
