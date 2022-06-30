@@ -1,0 +1,45 @@
+@mixin \$components\$header\$logo {
+	@include size(150px, 75px);
+	@include flex;
+	place-content: center;
+	place-items: center;
+	align-content: stretch;
+
+	&,
+	&__image,
+	&__clock {
+		@include clear-space;
+	}
+
+	&__image {
+		@include image-fit-cover;
+		@include size(150px, 80px);
+		padding: 13px 55px;
+		animation: logo-push 10s 1s ease both infinite;
+	}
+
+	&__clock {
+		@include center;
+		@include size(150px, 35px);
+		text-align: center;
+		font-size: 32px;
+		@include useFont(yekan, bold);
+	}
+}
+@keyframes logo-push {
+	from,
+	0%,
+	25% {
+		margin-top: 0;
+	}
+
+	50%,
+	75% {
+		margin-top: -95px;
+	}
+
+	to,
+	100% {
+		margin-top: 0;
+	}
+}
