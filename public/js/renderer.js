@@ -25,6 +25,30 @@ const api = {
 	},
 };
 
+function fixPrefix(value) {
+	return value < 10 ? `0${value}` : value;
+}
+const MINUTE_IN_MILLISECONDS = 60000;
+function clock($this, timeOut = null) {
+	// NOTE : remove loop of setTimeout and re-rendering twice
+	if (timeOut !== null) {
+		window.clearTimeout(timeOut);
+	}
+
+	let date = new Date();
+	let [hour, minute] = [date.getHours(), date.getMinutes()];
+	let currentTime = `${fixPrefix(hour)} : ${fixPrefix(minute)}`;
+	$this.html(currentTime);
+	$this.attr('title', currentTime);
+
+	// to re-rendering the clock() to update the time
+	timeOut = window.setTimeout(
+		() => clock($this, timeOut),
+		MINUTE_IN_MILLISECONDS,
+	);
+	return;
+}
+
 jQuery(document).ready(function ($) {
 	// authorization global state
 	const auth = {
@@ -32,7 +56,7 @@ jQuery(document).ready(function ($) {
 		password: undefined,
 	};
 
-	// login page selectors
+	// Selector - login
 	const $login = {
 		form: $('#login-form'),
 		button: $('#login-button'),
@@ -40,12 +64,20 @@ jQuery(document).ready(function ($) {
 		password: $('#login-password'),
 	};
 
-	// dashboard page selectors
+	// Selector - dashboard
 	const $dashboard = {};
+	const $navigation = {
+		wrapper: $('.header__navigation'),
+		logo: $('.header__logo > .logo__image'),
+		clock: $('.header__logo > .logo__clock'),
+		navigation: $('.navigation__list'),
+		items: $('.navigation__item'),
+	};
 
-	$login.form.on('submit', (ev) => {
-		e.preventDefault();
-	});
+	// Event Handler - dashboard
+	clock($navigation.clock, null);
+
+	// Event Handler - login
 	$login.button.on('click', async (ev) => {
 		let $form = $login.form;
 		api.post('/login', {
