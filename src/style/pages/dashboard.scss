@@ -19,8 +19,9 @@
 		grid-row: 1 / 13;
 	}
 	&__avatar {
-		grid-column: 11 / 12;
+		grid-column: 12 / 13;
 		grid-row: 1 / 13;
+		@include \$components\$header\$avatar;
 	}
 }
 
