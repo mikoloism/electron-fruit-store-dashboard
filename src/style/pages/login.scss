@@ -132,3 +132,18 @@ body {
 		padding: 15px;
 	}
 }
+
+.login {
+	&--error {
+	}
+
+	&--error &__field--username &__input,
+	&--error &__field--password &__input {
+		box-shadow: 0 0 0 9px #{color(accent)};
+	}
+
+	&--success &__field--username &__input,
+	&--success &__field--password &__input {
+		box-shadow: 0 0 0 9px #2a9d8f;
+	}
+}
