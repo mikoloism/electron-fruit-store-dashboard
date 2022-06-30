@@ -25,6 +25,7 @@ const api = {
 	},
 };
 
+jQuery(document).ready(function ($) {
 	// authorization global state
 	const auth = {
 		username: undefined,
@@ -33,6 +34,7 @@ const api = {
 
 	// login page selectors
 	const $login = {
+		form: $('#login-form'),
 		button: $('#login-button'),
 		username: $('#login-username'),
 		password: $('#login-password'),
@@ -41,17 +43,31 @@ const api = {
 	// dashboard page selectors
 	const $dashboard = {};
 
-	$login.button.on('click', () => {
-		console.log('clicked');
-		fetch(api('/login'), {
-			method: 'POST',
-			body: {
-				username: $login.username.val(),
-				password: $login.password.val(),
-			},
+	$login.form.on('submit', (ev) => {
+		e.preventDefault();
+	});
+	$login.button.on('click', async (ev) => {
+		let $form = $login.form;
+		api.post('/login', {
+			username: $login.username.val(),
+			password: $login.password.val(),
 		})
 			.then((res) => res.json())
-			.then((data) => console.log(data))
-			.catch((err) => console.log(err));
+			.then((data) => {
+				if (!data.data.isLoggedIn) {
+					$form.hasClass('login--success') &&
+						$form.removeClass('login--success');
+					return $form.addClass('login--error');
+				}
+
+				$form.hasClass('login--error') &&
+					$form.removeClass('login--error');
+				$form.addClass('login--success');
+				auth.username = data.data.username;
+				auth.password = data.data.password;
+				window.location.href = '/view/dashboard';
+				return;
+			})
+			.catch((err) => new Error(err));
 	});
 });
