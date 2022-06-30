@@ -4,14 +4,61 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Login</title>
+		<title>Dashboard</title>
 		<link
 			rel="stylesheet"
 			type="text/css"
-			href="static/css/pages/dashboard.css"
+			href="/static/css/pages/dashboard.css"
 		/>
 	</head>
 	<body>
-		<h1>🚧 WIP</h1>
+		<header id="header" class="header">
+			<figure class="header__logo logo">
+				<img
+					class="logo__image"
+					src="/static/assets/images/logo.svg"
+					alt="logo"
+				/>
+				<figcaption class="logo__clock" title="00 : 00">
+					00 : 00
+				</figcaption>
+			</figure>
+			<nav class="header__navigation navigation">
+				<ul class="navigation__list">
+					<li class="navigation__item navigation__item--active">
+						<a href="/view/dashboard" class="navigation__link">
+							داشبورد
+						</a>
+					</li>
+					<li class="navigation__item">
+						<a href="/view/product" class="navigation__link">
+							کالا ها
+						</a>
+					</li>
+					<li class="navigation__item">
+						<a href="/view/invoice" class="navigation__link">
+							فاکتور ها
+						</a>
+					</li>
+					<li class="navigation__item">
+						<a href="/view/saler" class="navigation__link">
+							فروشندگان
+						</a>
+					</li>
+					<li class="navigation__item">
+						<a href="/view/customer" class="navigation__link">
+							خریداران
+						</a>
+					</li>
+					<span class="navigation__handle">
+						<span class="navigation__handle__inner"></span>
+					</span>
+				</ul>
+			</nav>
+			<a class="header__avatar"> RK </a>
+		</header>
+		<main class="content"></main>
+		<script src="/static/js/jquery/dist/jquery.js"></script>
+		<script type="module" src="/static/js/renderer.js"></script>
 	</body>
 </html>
