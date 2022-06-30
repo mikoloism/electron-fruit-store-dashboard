@@ -1,1 +1,4 @@
 @import '../_global.scss';
+
+// include partial and components
+@include \$components\$header;
