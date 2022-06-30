@@ -21,7 +21,6 @@
 	&__avatar {
 		grid-column: 12 / 13;
 		grid-row: 1 / 13;
-		@include \$components\$header\$avatar;
 	}
 }
 
@@ -31,4 +30,8 @@
 
 .navigation {
 	@include \$components\$header\$navigation;
+}
+
+.header__avatar {
+	@include \$components\$header\$avatar;
 }
