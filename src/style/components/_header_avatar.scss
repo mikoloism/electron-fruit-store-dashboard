@@ -1,0 +1,32 @@
+@mixin \$components\$header\$avatar {
+	@include size($tog: 75px);
+	@include clear-space;
+	&,
+	&__inner {
+		@include center;
+		transition: all 0.5s ease;
+	}
+
+	&__inner {
+		@include size($tog: 80%);
+		@include radius(90);
+		font: {
+			size: 24px;
+			weight: bold;
+			family: font(yekan, bold);
+		}
+		padding-top: 0.45em;
+		background: color(secondary);
+		color: color(white);
+	}
+
+	&:hover {
+		background: color(secondary);
+		@include radius(90);
+		cursor: pointer;
+	}
+	&:hover &__inner {
+		background: color(white);
+		color: color(secondary);
+	}
+}
