@@ -27,3 +27,7 @@
 .logo {
 	@include \$components\$header\$logo;
 }
+
+.navigation {
+	@include \$components\$header\$navigation;
+}
