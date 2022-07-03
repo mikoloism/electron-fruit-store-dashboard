@@ -78,7 +78,7 @@ jQuery(document).ready(function ($) {
 	clock($navigation.clock, null);
 
 	// Event Handler - login
-	$login.button.on('click', async (ev) => {
+	$login.button.on('click', (ev) => {
 		let $form = $login.form;
 		api.post('/login', {
 			username: $login.username.val(),

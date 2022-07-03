@@ -2,6 +2,7 @@
 	"cSpell.words": [
 		"AUTOINCREMENT",
 		"Bakh",
+		"saler",
 		"yekan",
 		"الرحمن",
 		"الرحیم",
@@ -37,11 +38,11 @@
 		"README.md": true,
 		"package-lock.json": true,
 		"**/.gitignore": true,
-		"package.json": true,
+		"package.json": false,
 		"src/controller": false,
-		"src/model": true,
-		"dev.server.js": true,
-		"main.js": true,
+		"src/model": false,
+		"dev.server.js": false,
+		"main.js": false,
 		"server.js": false,
 		"public/css": true
 	},
