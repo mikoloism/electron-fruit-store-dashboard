@@ -19,7 +19,7 @@ function createWindow() {
 
 	// and load the index.html of the app.
 	server().then((serverPort) => {
-		mainWindow.loadURL(`http://127.0.0.1:${serverPort}/view`);
+		mainWindow.loadURL(`http://127.0.0.1:${serverPort}/view/login`);
 	});
 
 	// Open the DevTools.
