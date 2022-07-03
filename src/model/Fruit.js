@@ -3,9 +3,9 @@ const { link, db } = require('./connect.js');
 class Fruit {
 	constructor() {}
 
-	QUERY = {
+	static QUERY = {
 		CREATE: `
-	CREATE TABLE IF NOT EXISTS Fruit (
+		CREATE TABLE IF NOT EXISTS Fruit (
 		id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 		name TEXT,
 		cost INTEGER DEFAULT 0,
@@ -28,20 +28,77 @@ class Fruit {
 		DROP: `DROP TABLE IF EXISTS Fruit`,
 	};
 
-	init() {}
+	static init() {
+		return db.run(Fruit.QUERY.CREATE);
+	}
+
+	static readAll() {
+		return db.all(Fruit.QUERY.SELECT.ALL);
+	}
+
+	static readById(id) {
+		return db.all(Fruit.QUERY.SELECT.BY_ID);
+	}
+
+	static insert(data) {
+		return db.run(Fruit.QUERY.INSERT, data, function (error) {
+			return this.lastId;
+		});
+	}
+
+	static updateAll(id, newData) {
+		return db.run(
+			Fruit.QUERY.UPDATE.ALL,
+			[...newData, id],
+			function (error) {
+				return error;
+			},
+		);
+	}
+
+	static updateName(id, newName) {
+		return db.run(Fruit.QUERY.UPDATE.NAME, [newName, id], function (error) {
+			return error;
+		});
+	}
+
+	static updateCost(id, newCost) {
+		return db.run(Fruit.QUERY.UPDATE.COST, [newCost, id], function (error) {
+			return error;
+		});
+	}
+
+	static updateQuantity(id, newQuantity) {
+		return db.run(
+			Fruit.QUERY.UPDATE.QUANTITY,
+			[newQuantity, id],
+			function (error) {
+				return error;
+			},
+		);
+	}
+
+	static updateImage(id, newImage) {
+		return db.run(
+			Fruit.QUERY.UPDATE.IMAGE,
+			[newImage, id],
+			function (error) {
+				return error;
+			},
+		);
+	}
+
+	static remove(id) {
+		return db.run(Fruit.QUERY.DELETE, id, function (error) {
+			return error;
+		});
+	}
+
+	static drop() {
+		return db.run(Fruit.QUERY.DROP, function (error) {
+			return error;
+		});
+	}
 }
 
-module.exports.query = QUERY;
-module.exports.init = function () {
-	return db.run(QUERY.CREATE);
-};
-module.exports.readAll = function () {};
-module.exports.readById = function () {};
-module.exports.insert = function () {};
-module.exports.updateAll = function () {};
-module.exports.updateName = function () {};
-module.exports.updateCost = function () {};
-module.exports.updateQuantity = function () {};
-module.exports.updateImage = function () {};
-module.exports.remove = function () {};
-module.exports.drop = function () {};
+module.exports = Fruit;
