@@ -5,10 +5,12 @@
 	"main": "main.js",
 	"scripts": {
 		"start": "electron .",
-		"server": "node ./server.js",
+		"server": "node ./dev.server.js",
 		"server:watch": "nodemon ./dev.server.js",
 		"sass:build": "./node_modules/sass/sass.js ./src/style/:./public/css/",
 		"sass:watch": "./node_modules/sass/sass.js --watch ./src/style/:./public/css/",
+		"all": "npm run sass:build & npm run start",
+		"all:watch": "npm run sass:watch & npm run start",
 		"watch": "npm run sass:watch & npm run server:watch",
 		"dev": "npm run watch"
 	},
