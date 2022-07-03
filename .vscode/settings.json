@@ -8,9 +8,14 @@
 		"الله",
 		"اینجا",
 		"اینچا",
+		"خریداران",
+		"داشبورد",
 		"شوید",
+		"فاکتور",
+		"فروشندگان",
 		"کاربر",
 		"کاربری",
+		"کالا",
 		"گذرواژه",
 		"وارد",
 		"ورود"
@@ -33,11 +38,11 @@
 		"package-lock.json": true,
 		"**/.gitignore": true,
 		"package.json": true,
-		"src/controller": true,
+		"src/controller": false,
 		"src/model": true,
 		"dev.server.js": true,
 		"main.js": true,
-		"server.js": true,
+		"server.js": false,
 		"public/css": true
 	},
 	"explorerExclude.backup": null
