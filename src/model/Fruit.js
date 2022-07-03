@@ -88,9 +88,15 @@ class Fruit {
 		);
 	}
 
-	static remove(id) {
-		return db.run(Fruit.QUERY.DELETE, id, function (error) {
-			return error;
+	remove(id) {
+		return new Promise(function (resolve, reject) {
+			return db.run(Fruit.QUERY.DELETE, id, function (error) {
+				if (error) {
+					reject(error);
+					return;
+				}
+				return resolve(this.changes);
+			});
 		});
 	}
 
