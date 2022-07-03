@@ -134,9 +134,6 @@ body {
 }
 
 .login {
-	&--error {
-	}
-
 	&--error &__field--username &__input,
 	&--error &__field--password &__input {
 		box-shadow: 0 0 0 9px #{color(accent)};
