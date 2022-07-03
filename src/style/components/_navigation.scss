@@ -50,6 +50,11 @@
 
 	$const-size: 20;
 	@for $index from 1 to 6 {
+		&__item--active:nth-of-type(#{$index}) ~ &__handle {
+			left: unquote('#{($const-size * $index) - 20}%');
+		}
+	}
+	@for $index from 1 to 6 {
 		&__item:nth-of-type(#{$index}):not(&__item--active):hover ~ &__handle {
 			left: unquote('#{($const-size * $index) - 20}%');
 			--color-handle: #{color(secondary-25)};
