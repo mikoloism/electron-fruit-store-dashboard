@@ -73,6 +73,40 @@ jQuery(document).ready(function ($) {
 		navigation: $('.navigation__list'),
 		items: $('.navigation__item'),
 	};
+	const $createFruit = {
+		form: $('#fruit-form'),
+		name: $('#fruit-form-title'),
+		cost: $('#fruit-form-cost'),
+		quantity: $('#fruit-form-quantity'),
+		image: $('#fruit-form-image'),
+		submit: $('#fruit-form-submit'),
+		uploadSection: $('#fruit-form .upload'),
+		preview: $('#fruit-form-preview'),
+	};
+
+	// Event handlers - create-fruit
+	$createFruit.image.on('change', function (ev) {
+		let uploadedImage = $createFruit.image.get(0).files[0];
+		let uploadedImageURL = URL.createObjectURL(uploadedImage);
+		$createFruit.uploadSection
+			.removeClass('upload--upload')
+			.addClass('upload--progress');
+		$createFruit.preview.attr('src', uploadedImageURL);
+	});
+
+	$createFruit.submit.on('click', function (ev) {
+		let $cf = $createFruit;
+		let nameValue = $cf.name.val();
+		let costValue = $cf.cost.val();
+		let quantityValue = $cf.quantity.val();
+		api.post('/fruit', {
+			name: nameValue,
+			cost: costValue,
+			quantity: quantityValue,
+		})
+			.then((res) => console.log('hi'))
+			.catch(() => console.log('hey, you have error'));
+	});
 
 	// Event Handler - dashboard
 	clock($navigation.clock, null);
