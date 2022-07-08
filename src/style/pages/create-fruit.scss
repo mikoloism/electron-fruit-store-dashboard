@@ -1,0 +1,70 @@
+@import '../_global.scss';
+
+// include partial and components
+@include \$components\$header;
+
+.form {
+	@include size;
+	&,
+	&__group {
+		@include flex;
+		place-content: center;
+		place-items: center;
+		@include clear-space;
+	}
+
+	&__group {
+		border: none;
+		outline: none;
+		@include size(50%, 100%);
+
+		&--image {
+			order: -1;
+		}
+	}
+}
+
+.upload {
+	@include set-var(upload-pane-index-upload, 0vh);
+	@include set-var(upload-pane-index-progress, -70vh);
+	@include set-var(upload-pane-index-success, -140vh);
+	@include set-var(upload-pane-index-error, -210vh);
+	@include set-var(upload-pane-index, var(--upload-pane-index-upload));
+	@include size(50%, 100%);
+
+	&__inner {
+		@include relative;
+		@include size(70%, 70vh);
+		@include radius(30);
+		@include flex;
+		place-content: center;
+		place-items: center;
+		overflow: hidden;
+	}
+
+	&__wrapper {
+		@include absolute;
+		@include size(100%, 280vh);
+		@include flex;
+		top: val(upload-pane-index);
+	}
+
+	&__pane {
+		@include flex;
+		@include size(100%, 70vh);
+		place-content: center;
+		place-items: center;
+	}
+
+	&__pane {
+		&--upload {
+			background: color(white);
+		}
+	}
+
+	&__input {
+		opacity: 0;
+		@include absolute(0, 0, 0, 0);
+		@include size;
+	}
+}
