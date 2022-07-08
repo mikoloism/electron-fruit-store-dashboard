@@ -3,8 +3,13 @@
 // include partial and components
 @include \$components\$header;
 
+main.content {
+	height: calc(100% - 76px);
+}
+
 .form {
 	@include size;
+	margin-top: 25px;
 	&,
 	&__group {
 		@include flex;
@@ -24,12 +29,115 @@
 	}
 }
 
+.form {
+	&__group--input {
+		display: grid;
+		place-content: center;
+		place-items: center;
+		grid-template-columns: repeat(12, 1fr);
+		grid-template-rows: repeat(12, 1fr);
+		// row-gap: 26px;
+	}
+
+	&__title {
+		grid-column: 1/12;
+		grid-row: 2;
+		font-size: 64px;
+		@include clear-space;
+		width: 100%;
+		font-weight: bold;
+		font-family: font(yekan, heavy);
+		@include flex;
+		place-content: center;
+		place-items: center;
+		justify-content: flex-end;
+		color: color(secondary);
+	}
+
+	&__field {
+		direction: rtl;
+		width: 100%;
+		@include center;
+		row-gap: 10px;
+		justify-content: space-between;
+		&--title {
+			grid-row: 4;
+			grid-column: 1/12;
+		}
+		&--cost {
+			grid-row: 6;
+			grid-column: 1/12;
+		}
+		&--quantity {
+			grid-row: 8;
+			grid-column: 1/12;
+		}
+	}
+
+	&__label {
+		display: block;
+		font: {
+			size: 24px;
+			family: font(yekan, bold);
+			weight: bold;
+		}
+		padding: 0 15px;
+		color: color(secondary);
+		@include size(100%, 40px);
+	}
+
+	&__input {
+		@include clear-input;
+		@include size(100%, 60px);
+		color: color(black);
+		@include radius(15);
+		padding: 0 15px;
+
+		&,
+		&::placeholder {
+			font-size: 24px;
+			font-family: font(yekan, light);
+		}
+
+		&::placeholder {
+			color: color(black-50);
+		}
+	}
+
+	&__submit {
+		@include clear-button;
+		color: color(white);
+		font-size: 32px;
+		font-weight: bold;
+		font-family: font(yekan, bold);
+		grid-row: 10;
+		grid-column: 1 / 12;
+		background: color(secondary);
+		@include radius(15);
+		width: 100%;
+		padding: 15px;
+	}
+}
+
 .upload {
 	@include set-var(upload-pane-index-upload, 0vh);
 	@include set-var(upload-pane-index-progress, -70vh);
 	@include set-var(upload-pane-index-success, -140vh);
 	@include set-var(upload-pane-index-error, -210vh);
-	@include set-var(upload-pane-index, var(--upload-pane-index-upload));
+
+	&--upload {
+		@include set-var(upload-pane-index, var(--upload-pane-index-upload));
+	}
+	&--progress {
+		@include set-var(upload-pane-index, var(--upload-pane-index-progress));
+	}
+	&--success {
+		@include set-var(upload-pane-index, var(--upload-pane-index-success));
+	}
+	&--error {
+		@include set-var(upload-pane-index, var(--upload-pane-index-error));
+	}
+
 	@include size(50%, 100%);
 
 	&__inner {
@@ -55,16 +163,127 @@
 		place-content: center;
 		place-items: center;
 	}
+}
 
+.upload {
 	&__pane {
-		&--upload {
+		&--upload,
+		&--progress {
 			background: color(white);
 		}
+
+		&--success {
+			background: color(secondary);
+		}
+
+		&--error {
+			background: color(accent);
+		}
+	}
+}
+
+.upload {
+	&__pane--error {
+		@include relative;
+		@include flex;
+		place-content: center;
+		place-items: center;
 	}
 
+	&__error {
+		&__icon {
+			@include size(100%, 50%);
+			text-align: center;
+			@include flex;
+			place-content: center;
+			place-items: center;
+			font-size: 9em;
+			color: color(primary);
+		}
+		&__title {
+			font-size: 2.1em;
+			color: color(primary);
+		}
+	}
+}
+
+.upload {
+	&__pane--success {
+		@include relative;
+		@include flex;
+		place-content: center;
+		place-items: center;
+	}
+
+	&__success {
+		&__icon {
+			@include size(100%, 50%);
+			text-align: center;
+			@include flex;
+			place-content: center;
+			place-items: center;
+			font-size: 9em;
+			color: color(primary);
+		}
+		&__title {
+			font-size: 2.1em;
+			color: color(primary);
+		}
+	}
+}
+
+.upload {
+	&__pane--progress {
+		@include flex;
+		place-content: center;
+		place-items: center;
+	}
+
+	&__preview {
+		@include image-fit-cover;
+		@include size($tog: 90%);
+		@include clear-space;
+		@include radius(15);
+	}
+}
+
+.upload {
 	&__input {
-		opacity: 0;
+		// opacity: 0;
 		@include absolute(0, 0, 0, 0);
 		@include size;
+	}
+
+	&__upload__icon {
+		@include size(100%, 50%);
+		text-align: center;
+		@include flex;
+		place-content: center;
+		place-items: center;
+		font-size: 9em;
+		color: color(secondary);
+	}
+
+	&__overlay::after {
+		content: '';
+		display: inline-block;
+		@include size($tog: 85%);
+		@include absolute(50%, 50%);
+		@include radius(15);
+		transform: translate(-50%, -50%);
+		border: 6px dashed color(secondary);
+	}
+
+	&__title {
+		font-size: 2.1em;
+		color: color(secondary);
+	}
+
+	&__overlay {
+		@include relative;
+		@include size;
+		@include flex;
+		place-content: center;
+		place-items: center;
 	}
 }
