@@ -15,11 +15,15 @@ app.use(express.urlencoded({ extended: true }));
 const SERVER_PORT = 3000;
 const STATIC_PUBLIC = express.static(__dirname + '/public');
 const STATIC_NORMALIZE_CSS = express.static(pkg('normalize.css'));
+const STATIC_FONT_AWESOME_CSS = express.static(pkg('font-awesome/css'));
+const STATIC_FONT_AWESOME_FONT = express.static(pkg('font-awesome/fonts'));
 const STATIC_JQUERY = express.static(pkg('jquery'));
 
 // setup statics
 app.use('/static', STATIC_PUBLIC);
 app.use('/static/css/normalize', STATIC_NORMALIZE_CSS);
+app.use('/static/css/font-awesome', STATIC_FONT_AWESOME_CSS);
+app.use('/static/css/font-awesome', STATIC_FONT_AWESOME_FONT);
 app.use('/static/js/jquery', STATIC_JQUERY);
 
 // setup api and routers
