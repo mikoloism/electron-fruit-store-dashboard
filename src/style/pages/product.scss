@@ -27,6 +27,7 @@
 	}
 
 	&__icon {
+		@include radius;
 		background: color(secondary);
 		color: color(primary);
 	}
