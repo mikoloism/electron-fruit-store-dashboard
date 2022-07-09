@@ -7,6 +7,7 @@ router.post('/login', Controller.User.login);
 router.delete('/login', Controller.User.logout);
 router.post('/logout', Controller.User.logout);
 
+router.get('/fruit', Controller.Fruit.read);
 // TODO : router.get('/fruit', Controller.User.checkLogin, Controller.Fruit.read);
 
 module.exports = router;
