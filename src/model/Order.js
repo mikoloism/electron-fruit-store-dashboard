@@ -42,9 +42,9 @@ class Order {
 		});
 	}
 
-	static Insert(data) {
+	static insert(data) {
 		return new Promise(function (resolve, reject) {
-			return db.run(Order.QUERY.INSERT, function (error) {
+			return db.run(Order.QUERY.INSERT, [...data], function (error) {
 				if (error) {
 					reject(error);
 					return;
