@@ -1,8 +1,6 @@
 const { link, db } = require('./connect.js');
 
 class Fruit {
-	constructor() {}
-
 	static QUERY = {
 		CREATE: `
 		CREATE TABLE IF NOT EXISTS Fruit (
@@ -29,63 +27,127 @@ class Fruit {
 	};
 
 	static init() {
-		return db.run(Fruit.QUERY.CREATE);
+		return new Promise(function (resolve, reject) {
+			return db.run(Fruit.QUERY.CREATE, function (error) {
+				if (error) {
+					reject(error);
+					return;
+				}
+				return resolve();
+			});
+		});
 	}
 
 	static readAll() {
-		return db.all(Fruit.QUERY.SELECT.ALL);
+		return db.all(Fruit.QUERY.SELECT.ALL, function (error, rows) {
+			if (error) {
+				reject(error);
+				return;
+			}
+			return resolve(rows);
+		});
 	}
 
 	static readById(id) {
-		return db.all(Fruit.QUERY.SELECT.BY_ID);
+		return db.all(Fruit.QUERY.SELECT.BY_ID, id, function (error, rows) {
+			if (error) {
+				reject(error);
+				return;
+			}
+			return resolve(rows);
+		});
 	}
 
 	static insert(data) {
-		return db.run(Fruit.QUERY.INSERT, data, function (error) {
-			return this.lastId;
+		return new Promise(function (resolve, reject) {
+			return db.run(Fruit.QUERY.INSERT, data, function (error) {
+				if (error) {
+					reject(error);
+					return;
+				}
+				return resolve(this.lastId);
+			});
 		});
 	}
 
 	static updateAll(id, newData) {
-		return db.run(
-			Fruit.QUERY.UPDATE.ALL,
-			[...newData, id],
-			function (error) {
-				return error;
-			},
-		);
+		return new Promise(function (resolve, reject) {
+			return db.run(
+				Fruit.QUERY.UPDATE.ALL,
+				[...newData, id],
+				function (error) {
+					if (error) {
+						reject(error);
+						return;
+					}
+					return resolve(this.changes);
+				},
+			);
+		});
 	}
 
 	static updateName(id, newName) {
-		return db.run(Fruit.QUERY.UPDATE.NAME, [newName, id], function (error) {
-			return error;
+		return new Promise(function (resolve, reject) {
+			return db.run(
+				Fruit.QUERY.UPDATE.NAME,
+				[newName, id],
+				function (error) {
+					if (error) {
+						reject(error);
+						return;
+					}
+					return resolve(this.changes);
+				},
+			);
 		});
 	}
 
 	static updateCost(id, newCost) {
-		return db.run(Fruit.QUERY.UPDATE.COST, [newCost, id], function (error) {
-			return error;
+		return new Promise(function (resolve, reject) {
+			return db.run(
+				Fruit.QUERY.UPDATE.COST,
+				[newCost, id],
+				function (error) {
+					if (error) {
+						reject(error);
+						return;
+					}
+					return resolve(this.changes);
+				},
+			);
 		});
 	}
 
 	static updateQuantity(id, newQuantity) {
-		return db.run(
-			Fruit.QUERY.UPDATE.QUANTITY,
-			[newQuantity, id],
-			function (error) {
-				return error;
-			},
-		);
+		return new Promise(function (resolve, reject) {
+			return db.run(
+				Fruit.QUERY.UPDATE.QUANTITY,
+				[newQuantity, id],
+				function (error) {
+					if (error) {
+						reject(error);
+						return;
+					}
+					return resolve(this.changes);
+				},
+			);
+		});
 	}
 
 	static updateImage(id, newImage) {
-		return db.run(
-			Fruit.QUERY.UPDATE.IMAGE,
-			[newImage, id],
-			function (error) {
-				return error;
-			},
-		);
+		return new Promise(function (resolve, reject) {
+			return db.run(
+				Fruit.QUERY.UPDATE.IMAGE,
+				[newImage, id],
+				function (error) {
+					if (error) {
+						reject(error);
+						return;
+					}
+					return resolve(this.changes);
+				},
+			);
+		});
 	}
 
 	remove(id) {
@@ -101,8 +163,14 @@ class Fruit {
 	}
 
 	static drop() {
-		return db.run(Fruit.QUERY.DROP, function (error) {
-			return error;
+		return new Promise(function (resolve, reject) {
+			return db.run(Fruit.QUERY.DROP, function (error) {
+				if (error) {
+					reject(error);
+					return;
+				}
+				return resolve();
+			});
 		});
 	}
 }
