@@ -60,13 +60,22 @@ class Fruit {
 
 	static insert(data) {
 		return new Promise(function (resolve, reject) {
-			return db.run(Fruit.QUERY.INSERT, data, function (error) {
-				if (error) {
-					reject(error);
-					return;
-				}
-				return resolve(this.lastId);
-			});
+			Fruit.init()
+				.then(() => {
+					return db.run(Fruit.QUERY.INSERT, data, function (error) {
+						if (error) {
+							reject(error);
+							return;
+						}
+						return resolve(this.lastId);
+					});
+				})
+				.catch(() => {
+					console.log(`[FRUIT-MODEL] : DATABASE NOT CREATED`);
+				})
+				.finally(() => {
+					link.close();
+				});
 		});
 	}
 
