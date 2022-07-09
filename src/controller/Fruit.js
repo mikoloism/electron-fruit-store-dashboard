@@ -1,4 +1,9 @@
-// // const fruitModel = require('../model/Fruit.js');
+const FruitModel = require('../model/Fruit.js');
+const {
+	uploadImage,
+	generateUniqueName,
+	saveImage,
+} = require('../model/uploadImage.js');
 
 // class FruitController {
 // 	static read(rq, rs) {
@@ -36,3 +41,37 @@
 // }
 
 // module.exports = FruitController;
+
+class FruitController {
+	static create(req, res) {
+		const { fruitName, fruitCost, fruitQuantity } = req.body;
+		const fruitImageName = generateUniqueName();
+
+		return uploadImage(req, res, function (err) {
+			if (err) {
+				return res.end('Error uploading file.');
+			}
+
+			return saveImage(req.file.buffer, fruitImageName)
+				.then(() => {
+					FruitModel.insert([
+						fruitName,
+						fruitCost,
+						fruitQuantity,
+						fruitImageName,
+					])
+						.then(() => {
+							return res.end({ success: true });
+						})
+						.catch((err) => {
+							return res.send(err);
+						});
+				})
+				.catch((err) => {
+					return res.send(err);
+				});
+		});
+	}
+}
+
+module.exports = FruitController;
