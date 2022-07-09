@@ -39,12 +39,23 @@ class Fruit {
 	}
 
 	static readAll() {
-		return db.all(Fruit.QUERY.SELECT.ALL, function (error, rows) {
-			if (error) {
-				reject(error);
-				return;
-			}
-			return resolve(rows);
+		return new Promise(function (resolve, reject) {
+			Fruit.init()
+				.then(() => {
+					return db.all(
+						Fruit.QUERY.SELECT.ALL,
+						function (error, rows) {
+							if (error) {
+								reject(error);
+								return;
+							}
+							return resolve(rows);
+						},
+					);
+				})
+				.catch(() => {
+					console.log(`[MODEL][FRUIT] : fail init table`);
+				});
 		});
 	}
 
