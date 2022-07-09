@@ -3,7 +3,7 @@ const sharp = require('sharp');
 const path = require('path');
 const uuid = require('uuid');
 
-const UPLOAD_PATH = path.join(__dirname, 'database', 'uploads');
+const UPLOAD_PATH = path.join(__dirname, '..', '..', 'database', 'uploads');
 
 function generateUniqueName() {
 	return `${uuid.v4()}.jpeg`;
@@ -20,7 +20,7 @@ function saveImage(fileBuffer, fileName) {
 
 const Storage = multer.diskStorage({
 	destination: function (req, file, callback) {
-		callback(null, './../../database/uploads');
+		callback(null, UPLOAD_PATH);
 	},
 	filename: function (req, file, callback) {
 		callback(null, generateUniqueName());
