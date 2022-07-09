@@ -73,19 +73,20 @@ class Fruit {
 		return new Promise(function (resolve, reject) {
 			Fruit.init()
 				.then(() => {
-					return db.run(Fruit.QUERY.INSERT, data, function (error) {
-						if (error) {
-							reject(error);
-							return;
-						}
-						return resolve(this.lastId);
-					});
+					return db.run(
+						Fruit.QUERY.INSERT,
+						[...data],
+						function (error) {
+							if (error) {
+								reject(error);
+								return;
+							}
+							return resolve(this.lastId);
+						},
+					);
 				})
 				.catch(() => {
-					console.log(`[FRUIT-MODEL] : DATABASE NOT CREATED`);
-				})
-				.finally(() => {
-					link.close();
+					console.log(`[MODEL][FRUIT] : fail init table`);
 				});
 		});
 	}
