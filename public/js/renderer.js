@@ -49,6 +49,10 @@ function clock($this, timeOut = null) {
 	return;
 }
 
+function getImage(fileName) {
+	return `http://localhost:3000/static/uploads/${fileName}`;
+}
+
 jQuery(document).ready(function ($) {
 	// authorization global state
 	const auth = {
@@ -74,6 +78,7 @@ jQuery(document).ready(function ($) {
 		items: $('.navigation__item'),
 	};
 	const $createFruit = {
+		page: $('#create-fruit-page'),
 		form: $('#fruit-form'),
 		name: $('#fruit-form-title'),
 		cost: $('#fruit-form-cost'),
@@ -83,6 +88,7 @@ jQuery(document).ready(function ($) {
 		uploadSection: $('#fruit-form .upload'),
 		preview: $('#fruit-form-preview'),
 	};
+	const $fruit = { page: $('#fruit-page') };
 
 	// Event handlers - create-fruit
 	$createFruit.image.on('change', function (ev) {
@@ -94,18 +100,49 @@ jQuery(document).ready(function ($) {
 		$createFruit.preview.attr('src', uploadedImageURL);
 	});
 
-	$createFruit.submit.on('click', function (ev) {
+	$createFruit.form.on('submit', function (ev) {
+		ev.preventDefault();
 		let $cf = $createFruit;
 		let nameValue = $cf.name.val();
 		let costValue = $cf.cost.val();
 		let quantityValue = $cf.quantity.val();
-		api.post('/fruit', {
-			name: nameValue,
-			cost: costValue,
-			quantity: quantityValue,
-		})
-			.then((res) => console.log('hi'))
-			.catch(() => console.log('hey, you have error'));
+		let uploadedImage = $cf.image.get(0).files[0];
+		let formData = new FormData();
+		formData.append('fruitName', nameValue);
+		formData.append('fruitCost', costValue);
+		formData.append('fruitQuantity', quantityValue);
+		formData.append('uploaded-images', uploadedImage);
+		formData.forEach((item, key) => {
+			console.log(`form-data : `, { key, item });
+		});
+
+		$.ajax({
+			method: 'POST',
+			url: `${BASE_API}/fruit`,
+			processData: false,
+			contentType: false,
+			cache: false,
+			data: formData,
+			enctype: 'multipart/form',
+			success: function (res) {
+				$createFruit.uploadSection
+					.removeClass('upload--progress')
+					.addClass('upload--success');
+				// return window.setTimeout(
+				// 	() => (window.location.href = '/view/product'),
+				// 	2000,
+				// );
+			},
+		});
+	});
+
+	$fruit.page.ready(function (ev) {
+		api.get('/fruit')
+			.then((res) => res.json())
+			.then(({ rows }) => {
+				return console.log(`[DATA] : `, rows);
+			})
+			.catch((err) => console.log(`[FRUIT-GET] : ${err}`));
 	});
 
 	// Event Handler - dashboard
