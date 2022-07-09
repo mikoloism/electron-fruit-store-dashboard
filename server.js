@@ -18,9 +18,11 @@ const STATIC_NORMALIZE_CSS = express.static(pkg('normalize.css'));
 const STATIC_FONT_AWESOME_CSS = express.static(pkg('font-awesome/css'));
 const STATIC_FONT_AWESOME_FONT = express.static(pkg('font-awesome/fonts'));
 const STATIC_JQUERY = express.static(pkg('jquery'));
+const STATIC_UPLOADS = express.static(__dirname + '/database/uploads');
 
 // setup statics
 app.use('/static', STATIC_PUBLIC);
+app.use('/static/uploads', STATIC_UPLOADS);
 app.use('/static/css/normalize', STATIC_NORMALIZE_CSS);
 app.use('/static/css/font-awesome', STATIC_FONT_AWESOME_CSS);
 app.use('/static/css/font-awesome', STATIC_FONT_AWESOME_FONT);
