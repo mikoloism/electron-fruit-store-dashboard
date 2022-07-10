@@ -93,6 +93,8 @@ jQuery(document).ready(function ($) {
 	// Event handlers - create-fruit
 	$createFruit.image.on('change', function (ev) {
 		let uploadedImage = $createFruit.image.get(0).files[0];
+
+		// to show preview
 		let uploadedImageURL = URL.createObjectURL(uploadedImage);
 		$createFruit.uploadSection
 			.removeClass('upload--upload')
@@ -106,19 +108,16 @@ jQuery(document).ready(function ($) {
 		let nameValue = $cf.name.val();
 		let costValue = $cf.cost.val();
 		let quantityValue = $cf.quantity.val();
-		let uploadedImage = $cf.image.get(0).files[0];
+		let uploadedImage = $createFruit.image.get(0).files[0];
+		let fruitImageName = { generatedName: '' };
+
+		// create form data to upload image
 		let formData = new FormData();
-		formData.append('fruitName', nameValue);
-		formData.append('fruitCost', costValue);
-		formData.append('fruitQuantity', quantityValue);
 		formData.append('uploaded-images', uploadedImage);
-		formData.forEach((item, key) => {
-			console.log(`form-data : `, { key, item });
-		});
 
 		$.ajax({
-			method: 'POST',
-			url: `${BASE_API}/fruit`,
+			type: 'POST',
+			url: `${BASE_API}/fruit/image`,
 			processData: false,
 			contentType: false,
 			cache: false,
@@ -127,12 +126,26 @@ jQuery(document).ready(function ($) {
 			success: function (res) {
 				$createFruit.uploadSection
 					.removeClass('upload--progress')
-					.addClass('upload--success');
-				// return window.setTimeout(
-				// 	() => (window.location.href = '/view/product'),
-				// 	2000,
-				// );
+					.addClass(`upload--${res.error ? 'error' : 'success'}`);
+				fruitImageName.generatedName = res.data.fruitImageName;
+				return res.data.fruitImageName;
 			},
+		}).then(() => {
+			api.post('/fruit/data', {
+				fruitName: nameValue,
+				fruitCost: costValue,
+				fruitQuantity: quantityValue,
+				fruitImageName: fruitImageName.generatedName,
+			})
+				.then(() => {
+					window.setTimeout(
+						() => (window.location.href = '/view/product'),
+						3000,
+					);
+				})
+				.catch((error) => {
+					return console.log('[FETCH][CREATE-FRUIT] : ', error);
+				});
 		});
 	});
 
