@@ -11,5 +11,6 @@ router.post('/logout', Controller.User.logout);
 router.get('/fruit', Controller.Fruit.read);
 router.post('/fruit/image', receiveImage, Controller.Fruit.uploadImage);
 router.post('/fruit/data', Controller.Fruit.create);
+router.delete('/fruit', Controller.Fruit.remove);
 
 module.exports = router;
