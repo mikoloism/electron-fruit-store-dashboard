@@ -1,0 +1,80 @@
+@mixin \$components\$cart {
+	.cart {
+		& {
+			@include flex;
+			place: {
+				content: center;
+				items: center;
+			}
+			justify-items: center;
+			align-content: space-between;
+			align-items: center;
+			@include size(450px, 150px);
+			background: color(white);
+			@include radius(15);
+			padding: 15px;
+			flex-direction: column;
+			direction: rtl;
+		}
+
+		&__figure {
+			@include clear-space;
+			@include center;
+			display: inline-flex;
+			@include size($tog: 100px);
+		}
+
+		&__image {
+			@include center;
+			@include image-fit-cover;
+			@include radius(15);
+		}
+
+		&__details {
+			@include size(calc(450px - 100px - 30px - 15px), 100px);
+			display: grid;
+			gap: 5px;
+			grid-template-rows: repeat(12, 1fr);
+			grid-template-columns: repeat(12, 1fr);
+			padding: 9px;
+		}
+
+		&__title {
+			@include clear-space;
+			@include size(100%, 37px);
+			grid-column: 1 / 11;
+			grid-row: 1;
+			font-size: 24px;
+			font-weight: bold;
+			font-family: font(yekan, heavy);
+		}
+
+		&__description {
+			grid-column: 1 / 11;
+			grid-row: 6;
+			font-size: 14px;
+			font-weight: bold;
+			font-family: font(yekan, light);
+			color: color(black-50);
+		}
+
+		&__delete,
+		&__edit {
+			@include clear-button;
+			grid-column: 12;
+			background: color(primary);
+			@include radius(5);
+			@include size($tog: 24px);
+		}
+
+		&__delete {
+			grid-row: 6;
+			color: color(accent);
+		}
+
+		&__edit {
+			grid-row: 1;
+			color: color(secondary);
+		}
+	}
+}

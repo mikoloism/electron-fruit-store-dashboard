@@ -1,0 +1,12 @@
+@mixin \$components\$cart-wrapper {
+	display: grid;
+	grid-auto-rows: 200px 200px 200px;
+	grid-auto-columns: 450px 450px 450px;
+	grid-auto-flow: column;
+	gap: 72px;
+	padding: 75px 150px;
+	place: {
+		content: center;
+		items: center;
+	}
+}
