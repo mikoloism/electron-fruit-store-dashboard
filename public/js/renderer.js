@@ -90,6 +90,43 @@ jQuery(document).ready(function ($) {
 	};
 	const $fruit = { page: $('#fruit-page') };
 
+	// Event Handler - dashboard
+	clock($navigation.clock, null);
+
+	$fruit.page.ready(function (ev) {
+		api.get('/fruit')
+			.then((res) => res.json())
+			.then(({ rows }) => {
+				return rows.forEach(({ id, name, quantity, image }) => {
+					return $fruit.page.append(
+						createFruitCard({
+							fruitId: id,
+							fruitName: name,
+							fruitQuantity: quantity,
+							fruitImage: image,
+						}),
+					);
+				});
+			})
+			.then(() => {
+				return $('.fruit__delete').on('click', function (ev) {
+					let $this = $(this);
+					let dbRowId = $this.data('db-id');
+					api.remove(`/fruit?itemId=${dbRowId}`)
+						.then(({ error }) => {
+							if (error) {
+								return console.log('[FRUIT][DELETE] : ', error);
+							}
+							$this.parent().parent().remove();
+						})
+						.catch((error) =>
+							console.log('[FRUIT][DELETE] : ', error),
+						);
+				});
+			})
+			.catch((err) => console.log(`[FRUIT-GET] : ${err}`));
+	});
+
 	// Event handlers - create-fruit
 	$createFruit.image.on('change', function (ev) {
 		let uploadedImage = $createFruit.image.get(0).files[0];
