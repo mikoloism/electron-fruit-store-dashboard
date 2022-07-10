@@ -2,10 +2,10 @@
 
 // include partial and components
 @include \$components\$header;
-@include \$components\$cart;
+@include \$components\$cart($hasButton: true);
 
 #fruit-page {
-	@include \$components\$cart-wrapper($hasButton: true);
+	@include \$components\$cart-wrapper;
 }
 
 .option {
