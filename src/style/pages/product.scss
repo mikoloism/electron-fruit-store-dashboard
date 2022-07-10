@@ -5,7 +5,7 @@
 @include \$components\$cart;
 
 #fruit-page {
-	@include \$components\$cart-wrapper;
+	@include \$components\$cart-wrapper($hasButton: true);
 }
 
 .option {
