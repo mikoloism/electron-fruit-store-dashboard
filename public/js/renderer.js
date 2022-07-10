@@ -128,71 +128,63 @@ jQuery(document).ready(function ($) {
 	});
 
 	// Event handlers - create-fruit
-	$createFruit.image.on('change', function (ev) {
-		let uploadedImage = $createFruit.image.get(0).files[0];
+	$createFruit.page.ready(function (ev) {
+		$createFruit.image.on('change', function (ev) {
+			let uploadedImage = $createFruit.image.get(0).files[0];
 
-		// to show preview
-		let uploadedImageURL = URL.createObjectURL(uploadedImage);
-		$createFruit.uploadSection
-			.removeClass('upload--upload')
-			.addClass('upload--progress');
-		$createFruit.preview.attr('src', uploadedImageURL);
-	});
-
-	$createFruit.form.on('submit', function (ev) {
-		ev.preventDefault();
-		let $cf = $createFruit;
-		let nameValue = $cf.name.val();
-		let costValue = $cf.cost.val();
-		let quantityValue = $cf.quantity.val();
-		let uploadedImage = $createFruit.image.get(0).files[0];
-		let fruitImageName = { generatedName: '' };
-
-		// create form data to upload image
-		let formData = new FormData();
-		formData.append('uploaded-images', uploadedImage);
-
-		$.ajax({
-			type: 'POST',
-			url: `${BASE_API}/fruit/image`,
-			processData: false,
-			contentType: false,
-			cache: false,
-			data: formData,
-			enctype: 'multipart/form',
-			success: function (res) {
-				$createFruit.uploadSection
-					.removeClass('upload--progress')
-					.addClass(`upload--${res.error ? 'error' : 'success'}`);
-				fruitImageName.generatedName = res.data.fruitImageName;
-				return res.data.fruitImageName;
-			},
-		}).then(() => {
-			api.post('/fruit/data', {
-				fruitName: nameValue,
-				fruitCost: costValue,
-				fruitQuantity: quantityValue,
-				fruitImageName: fruitImageName.generatedName,
-			})
-				.then(() => {
-					window.setTimeout(
-						() => (window.location.href = '/view/product'),
-						3000,
-					);
-				})
-				.catch((error) => {
-					return console.log('[FETCH][CREATE-FRUIT] : ', error);
-				});
+			// to show preview
+			let uploadedImageURL = URL.createObjectURL(uploadedImage);
+			$createFruit.uploadSection
+				.removeClass('upload--upload')
+				.addClass('upload--progress');
+			$createFruit.preview.attr('src', uploadedImageURL);
 		});
-	});
+		$createFruit.form.on('submit', function (ev) {
+			ev.preventDefault();
+			let $cf = $createFruit;
+			let nameValue = $cf.name.val();
+			let costValue = $cf.cost.val();
+			let quantityValue = $cf.quantity.val();
+			let uploadedImage = $createFruit.image.get(0).files[0];
+			let fruitImageName = { generatedName: '' };
 
-	$fruit.page.ready(function (ev) {
-		api.get('/fruit')
-			.then((res) => res.json())
-			.then(({ rows }) => {
-				return console.log(`[DATA] : `, rows);
-			})
-			.catch((err) => console.log(`[FRUIT-GET] : ${err}`));
+			// create form data to upload image
+			let formData = new FormData();
+			formData.append('uploaded-images', uploadedImage);
+
+			$.ajax({
+				type: 'POST',
+				url: `${BASE_API}/fruit/image`,
+				processData: false,
+				contentType: false,
+				cache: false,
+				data: formData,
+				enctype: 'multipart/form',
+				success: function (res) {
+					$createFruit.uploadSection
+						.removeClass('upload--progress')
+						.addClass(`upload--${res.error ? 'error' : 'success'}`);
+					fruitImageName.generatedName = res.data.fruitImageName;
+					return res.data.fruitImageName;
+				},
+			}).then(() => {
+				api.post('/fruit/data', {
+					fruitName: nameValue,
+					fruitCost: costValue,
+					fruitQuantity: quantityValue,
+					fruitImageName: fruitImageName.generatedName,
+				})
+					.then(() => {
+						window.setTimeout(
+							() => (window.location.href = '/view/product'),
+							3000,
+						);
+					})
+					.catch((error) => {
+						return console.log('[FETCH][CREATE-FRUIT] : ', error);
+					});
+			});
+		});
 	});
 
 	// Event Handler - login
