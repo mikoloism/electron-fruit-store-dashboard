@@ -158,11 +158,9 @@ jQuery(document).ready(function ($) {
 			.catch((err) => console.log(`[FRUIT-GET] : ${err}`));
 	});
 
-	// Event Handler - dashboard
-	clock($navigation.clock, null);
-
 	// Event Handler - login
-	$login.button.on('click', (ev) => {
+	$login.form.on('submit', (ev) => {
+		ev.preventDefault();
 		let $form = $login.form;
 		api.post('/login', {
 			username: $login.username.val(),
@@ -181,7 +179,9 @@ jQuery(document).ready(function ($) {
 				$form.addClass('login--success');
 				auth.username = data.data.username;
 				auth.password = data.data.password;
-				window.location.href = '/view/dashboard';
+				window.setTimeout(() => {
+					return (window.location.href = '/view/dashboard');
+				}, 2000);
 				return;
 			})
 			.catch((err) => new Error(err));
