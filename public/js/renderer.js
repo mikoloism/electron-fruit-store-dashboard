@@ -54,11 +54,11 @@ jQuery(document).ready(function ($) {
 			.then(({ rows }) => {
 				return rows.forEach(({ id, name, quantity, image }) => {
 					return $fruit.page.append(
-						createFruitCard({
-							fruitId: id,
-							fruitName: name,
-							fruitQuantity: quantity,
-							fruitImage: image,
+						$CartComponent({
+							id,
+							name,
+							description: `موجودی : ${quantity} تن`,
+							image,
 						}),
 					);
 				});
