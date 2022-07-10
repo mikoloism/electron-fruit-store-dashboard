@@ -50,6 +50,19 @@ class FruitController {
 				});
 			});
 	}
+
+	static remove(req, res) {
+		let { itemId } = req.query;
+		FruitModel.remove(itemId)
+			.then(() => {
+				return res.send({ error: undefined, data: undefined });
+			})
+			.catch((error) => {
+				return res.send({
+					error: { form: 'controller.fruit.remove', error: error },
+				});
+			});
+	}
 }
 
 module.exports = FruitController;
