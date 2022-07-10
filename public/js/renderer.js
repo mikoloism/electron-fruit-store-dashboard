@@ -53,6 +53,37 @@ function getImage(fileName) {
 	return `http://localhost:3000/static/uploads/${fileName}`;
 }
 
+function createFruitCard({ fruitId, fruitName, fruitQuantity, fruitImage }) {
+	const $ = jQuery;
+	const $figure = $(`
+		<figure class="fruit__figure">
+			<img class="fruit__image" src=${getImage(fruitImage)}
+		</figure>
+	`).clone(true);
+	const $details = $(`
+		<section class="fruit__details">
+			<h3 class="fruit__title">${fruitName}</h3>
+			<span class="fruit__quantity">
+			موجودی : ${fruitQuantity} تن
+			</span>
+			<button type="button" class="fruit__delete" data-db-id="${fruitId}">
+				<i class="fruit__delete__icon fa fa-trash"></i>
+			</button>
+			<button type="button" class="fruit__edit" data-db-id="${fruitId}">
+				<i class="fruit__edit__icon fa fa-pencil"></i>
+			</button>
+		</section>
+	`).clone(true);
+	const $template = $(
+		`<section class="fruit__cart" data-db-id="${fruitId}"></section>`,
+	);
+
+	$template.append($figure);
+	$template.append($details);
+
+	return $template.clone(true);
+}
+
 jQuery(document).ready(function ($) {
 	// authorization global state
 	const auth = {
@@ -67,8 +98,6 @@ jQuery(document).ready(function ($) {
 		username: $('#login-username'),
 		password: $('#login-password'),
 	};
-
-	// Selector - dashboard
 	const $dashboard = {};
 	const $navigation = {
 		wrapper: $('.header__navigation'),
