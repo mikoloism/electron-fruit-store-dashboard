@@ -30,7 +30,6 @@ const api = {
  GLOBAL MAIN RENDERER
 ******************************************* */
 jQuery(document).ready(function ($) {
-	const $dashboard = {};
 	const $navigation = {
 		wrapper: $('.header__navigation'),
 		logo: $('.header__logo > .logo__image'),
@@ -38,9 +37,86 @@ jQuery(document).ready(function ($) {
 		navigation: $('.navigation__list'),
 		items: $('.navigation__item'),
 	};
+	const $dashboard = { page: $('#dashboard-page') };
 
 	// Event Handler - dashboard
 	clock($navigation.clock, null);
+});
+
+/*
+ CUSTOMER PAGE
+******************************************* */
+jQuery(document).ready(function ($) {
+	const $customer = { page: $('#customer-page') };
+	const FAKE_DB = [
+		{
+			id: 1,
+			name: 'محمد رحیمی',
+			date: '۱۱ خرداد ۱۴۰۱',
+			image: 'customer-01.png',
+		},
+		{
+			id: 2,
+			name: 'مراد کاظمی',
+			date: '۱۰ خرداد ۱۴۰۱',
+			image: 'customer-02.png',
+		},
+		{
+			id: 3,
+			name: 'محسن کوهی',
+			date: '۰۹ خرداد ۱۴۰۱',
+			image: 'customer-03.png',
+		},
+		{
+			id: 4,
+			name: 'رضا صادقی',
+			date: '۱۲ مرداد ۱۴۰۱',
+			image: 'customer-04.png',
+		},
+		{
+			id: 5,
+			name: 'محسن هاشمی',
+			date: '۱۵ خرداد ۱۴۰۱',
+			image: 'customer-05.png',
+		},
+		{
+			id: 6,
+			name: 'امین وفایی',
+			date: '۲۵ خرداد ۱۴۰۱',
+			image: 'customer-06.png',
+		},
+		{
+			id: 7,
+			name: 'رضا گوهری',
+			date: '۲۵ خرداد ۱۴۰۱',
+			image: 'customer-07.png',
+		},
+		{
+			id: 8,
+			name: 'حسین خلج زاده',
+			date: '۲۵ خرداد ۱۴۰۱',
+			image: 'customer-08.png',
+		},
+		{
+			id: 9,
+			name: 'علی موسوی',
+			date: '۲۵ خرداد ۱۴۰۱',
+			image: 'customer-09.png',
+		},
+	];
+
+	$customer.page.ready(() => {
+		return FAKE_DB.map(({ id, name, date, image }) => {
+			return $customer.page.append(
+				$CartComponent({
+					id,
+					name,
+					description: `تاریخ ورود : ${date}`,
+					image,
+				}),
+			);
+		});
+	});
 });
 
 /*
@@ -54,12 +130,15 @@ jQuery(document).ready(function ($) {
 			.then(({ rows }) => {
 				return rows.forEach(({ id, name, quantity, image }) => {
 					return $fruit.page.append(
-						$CartComponent({
-							id,
-							name,
-							description: `موجودی : ${quantity} تن`,
-							image,
-						}),
+						$CartComponent(
+							{
+								id,
+								name,
+								description: `موجودی : ${quantity} تن`,
+								image,
+							},
+							true,
+						),
 					);
 				});
 			})
@@ -236,7 +315,7 @@ function getImage(fileName) {
 	return `http://localhost:3000/static/uploads/${fileName}`;
 }
 
-function $CartComponent({ id, name, description, image }, hasButton = true) {
+function $CartComponent({ id, name, description, image }, hasButton = false) {
 	const $ = jQuery;
 	const $figure = $(`
 	<figure class="cart__figure">
