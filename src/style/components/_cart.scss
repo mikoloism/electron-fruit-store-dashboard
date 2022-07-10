@@ -1,4 +1,4 @@
-@mixin \$components\$cart {
+@mixin \$components\$cart($hasButton: false) {
 	.cart {
 		& {
 			@include flex;
@@ -57,24 +57,25 @@
 			font-family: font(yekan, light);
 			color: color(black-50);
 		}
+		@if $hasButton == true {
+			&__delete,
+			&__edit {
+				@include clear-button;
+				grid-column: 12;
+				background: color(primary);
+				@include radius(5);
+				@include size($tog: 24px);
+			}
 
-		&__delete,
-		&__edit {
-			@include clear-button;
-			grid-column: 12;
-			background: color(primary);
-			@include radius(5);
-			@include size($tog: 24px);
-		}
+			&__delete {
+				grid-row: 6;
+				color: color(accent);
+			}
 
-		&__delete {
-			grid-row: 6;
-			color: color(accent);
-		}
-
-		&__edit {
-			grid-row: 1;
-			color: color(secondary);
+			&__edit {
+				grid-row: 1;
+				color: color(secondary);
+			}
 		}
 	}
 }
