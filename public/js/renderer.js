@@ -1,6 +1,7 @@
 'use strict';
 
-// api constant and method
+// CONSTANT
+const MINUTE_IN_MILLISECONDS = 60000;
 const BASE_API = `http://localhost:3000/api`;
 const api = {
 	post(endpoint, body) {
@@ -25,79 +26,10 @@ const api = {
 	},
 };
 
-function fixPrefix(value) {
-	return value < 10 ? `0${value}` : value;
-}
-const MINUTE_IN_MILLISECONDS = 60000;
-function clock($this, timeOut = null) {
-	// NOTE : remove loop of setTimeout and re-rendering twice
-	if (timeOut !== null) {
-		window.clearTimeout(timeOut);
-	}
-
-	let date = new Date();
-	let [hour, minute] = [date.getHours(), date.getMinutes()];
-	let currentTime = `${fixPrefix(hour)} : ${fixPrefix(minute)}`;
-	$this.html(currentTime);
-	$this.attr('title', currentTime);
-
-	// to re-rendering the clock() to update the time
-	timeOut = window.setTimeout(
-		() => clock($this, timeOut),
-		MINUTE_IN_MILLISECONDS,
-	);
-	return;
-}
-
-function getImage(fileName) {
-	return `http://localhost:3000/static/uploads/${fileName}`;
-}
-
-function createFruitCard({ fruitId, fruitName, fruitQuantity, fruitImage }) {
-	const $ = jQuery;
-	const $figure = $(`
-		<figure class="fruit__figure">
-			<img class="fruit__image" src=${getImage(fruitImage)}
-		</figure>
-	`).clone(true);
-	const $details = $(`
-		<section class="fruit__details">
-			<h3 class="fruit__title">${fruitName}</h3>
-			<span class="fruit__quantity">
-			موجودی : ${fruitQuantity} تن
-			</span>
-			<button type="button" class="fruit__delete" data-db-id="${fruitId}">
-				<i class="fruit__delete__icon fa fa-trash"></i>
-			</button>
-			<button type="button" class="fruit__edit" data-db-id="${fruitId}">
-				<i class="fruit__edit__icon fa fa-pencil"></i>
-			</button>
-		</section>
-	`).clone(true);
-	const $template = $(
-		`<section class="fruit__cart" data-db-id="${fruitId}"></section>`,
-	);
-
-	$template.append($figure);
-	$template.append($details);
-
-	return $template.clone(true);
-}
-
+/*
+ GLOBAL MAIN RENDERER
+******************************************* */
 jQuery(document).ready(function ($) {
-	// authorization global state
-	const auth = {
-		username: undefined,
-		password: undefined,
-	};
-
-	// Selector - login
-	const $login = {
-		form: $('#login-form'),
-		button: $('#login-button'),
-		username: $('#login-username'),
-		password: $('#login-password'),
-	};
 	const $dashboard = {};
 	const $navigation = {
 		wrapper: $('.header__navigation'),
@@ -106,22 +38,16 @@ jQuery(document).ready(function ($) {
 		navigation: $('.navigation__list'),
 		items: $('.navigation__item'),
 	};
-	const $createFruit = {
-		page: $('#create-fruit-page'),
-		form: $('#fruit-form'),
-		name: $('#fruit-form-title'),
-		cost: $('#fruit-form-cost'),
-		quantity: $('#fruit-form-quantity'),
-		image: $('#fruit-form-image'),
-		submit: $('#fruit-form-submit'),
-		uploadSection: $('#fruit-form .upload'),
-		preview: $('#fruit-form-preview'),
-	};
-	const $fruit = { page: $('#fruit-page') };
 
 	// Event Handler - dashboard
 	clock($navigation.clock, null);
+});
 
+/*
+ FRUIT PAGE
+******************************************* */
+jQuery(document).ready(function ($) {
+	const $fruit = { page: $('#fruit-page') };
 	$fruit.page.ready(function (ev) {
 		api.get('/fruit')
 			.then((res) => res.json())
@@ -155,6 +81,23 @@ jQuery(document).ready(function ($) {
 			})
 			.catch((err) => console.log(`[FRUIT-GET] : ${err}`));
 	});
+});
+
+/*
+ CREATE FRUIT PAGE
+******************************************* */
+jQuery(document).ready(function ($) {
+	const $createFruit = {
+		page: $('#create-fruit-page'),
+		form: $('#fruit-form'),
+		name: $('#fruit-form-title'),
+		cost: $('#fruit-form-cost'),
+		quantity: $('#fruit-form-quantity'),
+		image: $('#fruit-form-image'),
+		submit: $('#fruit-form-submit'),
+		uploadSection: $('#fruit-form .upload'),
+		preview: $('#fruit-form-preview'),
+	};
 
 	// Event handlers - create-fruit
 	$createFruit.page.ready(function (ev) {
@@ -215,7 +158,25 @@ jQuery(document).ready(function ($) {
 			});
 		});
 	});
+});
 
+/*
+ LOGIN PAGE
+******************************************* */
+jQuery(document).ready(function ($) {
+	// authorization global state
+	const auth = {
+		username: undefined,
+		password: undefined,
+	};
+
+	// Selector - login
+	const $login = {
+		form: $('#login-form'),
+		button: $('#login-button'),
+		username: $('#login-username'),
+		password: $('#login-password'),
+	};
 	// Event Handler - login
 	$login.form.on('submit', (ev) => {
 		ev.preventDefault();
@@ -245,3 +206,62 @@ jQuery(document).ready(function ($) {
 			.catch((err) => new Error(err));
 	});
 });
+
+/*
+ UTILITIES
+********************************************** */
+function fixPrefix(value) {
+	return value < 10 ? `0${value}` : value;
+}
+function clock($this, timeOut = null) {
+	// NOTE : remove loop of setTimeout and re-rendering twice
+	if (timeOut !== null) {
+		window.clearTimeout(timeOut);
+	}
+
+	let date = new Date();
+	let [hour, minute] = [date.getHours(), date.getMinutes()];
+	let currentTime = `${fixPrefix(hour)} : ${fixPrefix(minute)}`;
+	$this.html(currentTime);
+	$this.attr('title', currentTime);
+
+	// to re-rendering the clock() to update the time
+	timeOut = window.setTimeout(
+		() => clock($this, timeOut),
+		MINUTE_IN_MILLISECONDS,
+	);
+	return;
+}
+function getImage(fileName) {
+	return `http://localhost:3000/static/uploads/${fileName}`;
+}
+function createFruitCard({ fruitId, fruitName, fruitQuantity, fruitImage }) {
+	const $ = jQuery;
+	const $figure = $(`
+		<figure class="fruit__figure">
+			<img class="fruit__image" src=${getImage(fruitImage)}
+		</figure>
+	`).clone(true);
+	const $details = $(`
+		<section class="fruit__details">
+			<h3 class="fruit__title">${fruitName}</h3>
+			<span class="fruit__quantity">
+			موجودی : ${fruitQuantity} تن
+			</span>
+			<button type="button" class="fruit__delete" data-db-id="${fruitId}">
+				<i class="fruit__delete__icon fa fa-trash"></i>
+			</button>
+			<button type="button" class="fruit__edit" data-db-id="${fruitId}">
+				<i class="fruit__edit__icon fa fa-pencil"></i>
+			</button>
+		</section>
+	`).clone(true);
+	const $template = $(
+		`<section class="fruit__cart" data-db-id="${fruitId}"></section>`,
+	);
+
+	$template.append($figure);
+	$template.append($details);
+
+	return $template.clone(true);
+}
