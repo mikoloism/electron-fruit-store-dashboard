@@ -171,7 +171,7 @@ class Fruit {
 		});
 	}
 
-	remove(id) {
+	static remove(id) {
 		return new Promise(function (resolve, reject) {
 			return db.run(Fruit.QUERY.DELETE, id, function (error) {
 				if (error) {
