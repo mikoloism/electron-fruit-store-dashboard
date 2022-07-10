@@ -1,76 +1,54 @@
 const FruitModel = require('../model/Fruit.js');
-const {
-	uploadImage,
-	generateUniqueName,
-	saveImage,
-} = require('../model/uploadImage.js');
-
-// class FruitController {
-// 	static read(rq, rs) {
-// 		const fruitId = rq.query.id;
-// 		if (fruitId) {
-// 			return FruitController.readById(rq, rs);
-// 		}
-
-// 		return FruitController.readAll(rq, rs);
-// 	}
-
-// 	static readAll(req, res) {
-// 		const FruitArray = [];
-// 		return res
-// 			.send({
-// 				method: 'GET',
-// 				path: '/api/fruit',
-// 				status: 200,
-// 				data: FruitArray,
-// 			})
-// 			.end();
-// 	}
-
-// 	static readById(req, res) {
-// 		let fruitId = req.query.id;
-// 		fruitModel
-// 			.readById(fruitId)
-// 			.then((fruit) => {})
-// 			.catch((error) => {});
-// 	}
-
-// 	static create(options) {
-// 		Fruit.insert(options);
-// 	}
-// }
-
-// module.exports = FruitController;
+const { generateUniqueName, saveImage } = require('../model/uploadImage.js');
 
 class FruitController {
-	static create(req, res) {
-		const { fruitName, fruitCost, fruitQuantity } = req.body;
+	static read(req, res) {
+		return FruitController.readAll(req, res);
+	}
+
+	static readAll(req, res) {
+		return FruitModel.readAll()
+			.then((rows) => {
+				res.send({ rows });
+			})
+			.catch((err) => {
+				console.log(`[CONTROLLER][FRUIT] : ${err}`);
+			});
+	}
+	static readById(req, res) {}
+
+	static uploadImage(req, res) {
 		const fruitImageName = generateUniqueName();
+		return saveImage(req.file, fruitImageName)
+			.then((imageName) => {
+				res.send({ error: false, data: { fruitImageName: imageName } });
+			})
+			.catch((error) => {
+				res.send({ error: { from: 'saveImage', message: error } });
+			});
+	}
 
-		return uploadImage(req, res, function (err) {
-			if (err) {
-				return res.end('Error uploading file.');
-			}
+	static create(req, res) {
+		const { fruitName, fruitCost, fruitQuantity, fruitImageName } =
+			req.body;
 
-			return saveImage(req.file.buffer, fruitImageName)
-				.then(() => {
-					FruitModel.insert([
+		FruitModel.insert([fruitName, fruitCost, fruitQuantity, fruitImageName])
+			.then(() => {
+				return res.send({
+					error: undefined,
+					data: {
 						fruitName,
 						fruitCost,
 						fruitQuantity,
 						fruitImageName,
-					])
-						.then(() => {
-							return res.end({ success: true });
-						})
-						.catch((err) => {
-							return res.send(err);
-						});
-				})
-				.catch((err) => {
-					return res.send(err);
+					},
 				});
-		});
+			})
+			.catch((error) => {
+				return res.send({
+					error: { from: 'controller.fruit.create', message: error },
+				});
+			});
 	}
 }
 
