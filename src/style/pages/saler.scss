@@ -2,3 +2,8 @@
 
 // include partial and components
 @include \$components\$header;
+@include \$components\$cart;
+
+#saler-page {
+	@include \$components\$cart-wrapper;
+}
