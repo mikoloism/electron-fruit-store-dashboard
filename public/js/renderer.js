@@ -236,7 +236,7 @@ function getImage(fileName) {
 	return `http://localhost:3000/static/uploads/${fileName}`;
 }
 
-function createCart({ id, name, description, image }, hasButton) {
+function $CartComponent({ id, name, description, image }, hasButton = true) {
 	const $ = jQuery;
 	const $figure = $(`
 	<figure class="cart__figure">
@@ -246,9 +246,7 @@ function createCart({ id, name, description, image }, hasButton) {
 	const $details = $(`
 	<section class="cart__details">
 		<h3 class="cart__title">${name}</h3>
-		<span class="cart__quantity">
-		موجودی : ${quantity} تن
-		</span>
+		<span class="cart__description">${description}</span>
 		${
 			hasButton
 				? `
@@ -263,4 +261,9 @@ function createCart({ id, name, description, image }, hasButton) {
 	</section>
 `).clone(true);
 	const $template = $(`<section class="cart" data-db-id="${id}"></section>`);
+
+	$template.append($figure);
+	$template.append($details);
+
+	return $template.clone(true);
 }
