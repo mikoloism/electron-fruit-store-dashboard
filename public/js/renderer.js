@@ -235,33 +235,32 @@ function clock($this, timeOut = null) {
 function getImage(fileName) {
 	return `http://localhost:3000/static/uploads/${fileName}`;
 }
-function createFruitCard({ fruitId, fruitName, fruitQuantity, fruitImage }) {
+
+function createCart({ id, name, description, image }, hasButton) {
 	const $ = jQuery;
 	const $figure = $(`
-		<figure class="fruit__figure">
-			<img class="fruit__image" src=${getImage(fruitImage)}
-		</figure>
-	`).clone(true);
+	<figure class="cart__figure">
+		<img class="cart__image" src=${getImage(image)}
+	</figure>
+`).clone(true);
 	const $details = $(`
-		<section class="fruit__details">
-			<h3 class="fruit__title">${fruitName}</h3>
-			<span class="fruit__quantity">
-			موجودی : ${fruitQuantity} تن
-			</span>
-			<button type="button" class="fruit__delete" data-db-id="${fruitId}">
-				<i class="fruit__delete__icon fa fa-trash"></i>
-			</button>
-			<button type="button" class="fruit__edit" data-db-id="${fruitId}">
-				<i class="fruit__edit__icon fa fa-pencil"></i>
-			</button>
-		</section>
-	`).clone(true);
-	const $template = $(
-		`<section class="fruit__cart" data-db-id="${fruitId}"></section>`,
-	);
-
-	$template.append($figure);
-	$template.append($details);
-
-	return $template.clone(true);
+	<section class="cart__details">
+		<h3 class="cart__title">${name}</h3>
+		<span class="cart__quantity">
+		موجودی : ${quantity} تن
+		</span>
+		${
+			hasButton
+				? `
+				<button type="button" class="cart__delete" data-db-id="${id}">
+					<i class="cart__delete__icon fa fa-trash"></i>
+				</button>
+				<button type="button" class="cart__edit" data-db-id="${id}">
+					<i class="cart__edit__icon fa fa-pencil"></i>
+				</button>`
+				: ``
+		}
+	</section>
+`).clone(true);
+	const $template = $(`<section class="cart" data-db-id="${id}"></section>`);
 }
