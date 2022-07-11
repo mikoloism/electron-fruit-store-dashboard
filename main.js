@@ -6,8 +6,8 @@ const server = require('./server.js');
 function createWindow() {
 	// Create the browser window.
 	const mainWindow = new BrowserWindow({
-		width: 800,
-		height: 600,
+		width: 1366,
+		height: 720,
 		// fullscreen: true,
 		// frame: false,
 		autoHideMenuBar: true,
@@ -15,7 +15,7 @@ function createWindow() {
 			preload: path.join(__dirname, 'preload.js'),
 		},
 	});
-	mainWindow.webContents.openDevTools();
+	// mainWindow.webContents.openDevTools();
 
 	// and load the index.html of the app.
 	server().then((serverPort) => {
