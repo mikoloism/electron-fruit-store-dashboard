@@ -48,6 +48,7 @@ jQuery(document).ready(function ($) {
 ******************************************* */
 jQuery(document).ready(function ($) {
 	const $customer = { page: $('#customer-page') };
+	const $saler = { page: $('#saler-page') };
 	const FAKE_DB = [
 		{
 			id: 1,
@@ -104,6 +105,19 @@ jQuery(document).ready(function ($) {
 			image: 'customer-09.png',
 		},
 	];
+
+	$saler.page.ready(() => {
+		return FAKE_DB.map(({ id, name, date, image }) => {
+			return $saler.page.append(
+				$CartComponent({
+					id,
+					name,
+					description: `تاریخ ورود : ${date}`,
+					image,
+				}),
+			);
+		});
+	});
 
 	$customer.page.ready(() => {
 		return FAKE_DB.map(({ id, name, date, image }) => {
