@@ -249,7 +249,7 @@ main.content {
 
 .upload {
 	&__input {
-		// opacity: 0;
+		opacity: 0;
 		@include absolute(0, 0, 0, 0);
 		@include size;
 	}
