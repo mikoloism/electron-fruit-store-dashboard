@@ -46,11 +46,11 @@
 		"**/.project": true,
 		"**/.settings": true,
 		"**/.factorypath": true,
-		"node_modules": true,
-		".vscode": true,
-		".gitignore": true,
-		"README.md": true,
-		"package-lock.json": true,
+		"node_modules": false,
+		".vscode": false,
+		".gitignore": false,
+		"README.md": false,
+		"package-lock.json": false,
 		"**/.gitignore": true,
 		"package.json": false,
 		"src/controller": false,
@@ -58,7 +58,7 @@
 		"dev.server.js": false,
 		"main.js": false,
 		"server.js": false,
-		"public/css": true
+		"public/css": false
 	},
 	"explorerExclude.backup": null
 }
