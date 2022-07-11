@@ -11,8 +11,8 @@
 		"sass:watch": "./node_modules/sass/sass.js --watch ./src/style/:./public/css/",
 		"all": "npm run sass:build & npm run start",
 		"all:watch": "npm run sass:watch & npm run start",
-		"watch": "npm run sass:watch & npm run server:watch",
-		"dev": "npm run watch"
+		"watch": "npm run sass:watch & npm run start",
+		"dev": "npm run sass:watch & npm run server:watch"
 	},
 	"repository": "https://github.com/electron/electron-quick-start",
 	"keywords": [
