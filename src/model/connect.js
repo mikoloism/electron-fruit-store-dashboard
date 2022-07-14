@@ -1,7 +1,13 @@
 const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
 
-const DB_FILE_PATH = path.join(__dirname, 'main.sqlite');
+const DB_FILE_PATH = path.join(
+	__dirname,
+	'..',
+	'..',
+	'database',
+	'main.sqlite',
+);
 
 class Database {
 	db = {};
