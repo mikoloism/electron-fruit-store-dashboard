@@ -1,0 +1,146 @@
+@import '../_global.scss';
+
+html {
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+}
+
+body {
+	background-image: url('/static/assets/images/background.png');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-origin: border-box;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+
+	display: grid;
+	grid-template-rows: repeat(12, 1fr);
+	grid-template-columns: repeat(12, 1fr);
+	gap: 10px;
+	padding: 30px;
+}
+
+.logo {
+	position: fixed;
+	top: 15px;
+	left: calc(100% - 300px);
+}
+
+.logo__image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.login {
+	@include radius(35);
+	@include clear-space;
+	grid-column: 4 / 9;
+	grid-row: 1 / 13;
+	backdrop-filter: blur(10px);
+	background-color: color(black-30);
+
+	&__content {
+		@include clear-space;
+		height: 100%;
+		border: 0;
+		direction: rtl;
+		display: grid;
+		row-gap: 64px;
+		padding: 0 64px;
+		grid-auto-flow: row;
+		grid-template-rows: repeat(4, 100px);
+		grid-template-columns: repeat(12, 1fr);
+		place-content: center;
+		place-items: center;
+	}
+
+	&__title {
+		@include clear-space;
+		width: 100%;
+		grid-column: 1/13;
+		grid-row: 1;
+		font-size: 64px;
+		font-weight: bold;
+		font-family: font(yekan, heavy);
+		@include center;
+		justify-content: flex-start;
+		color: color(white);
+	}
+
+	&__field {
+		width: 100%;
+		@include center;
+		row-gap: 10px;
+		justify-content: space-between;
+
+		&--username {
+			grid-row: 2;
+			grid-column: 1/13;
+		}
+
+		&--password {
+			grid-row: 3;
+			grid-column: 1/13;
+		}
+	}
+
+	&__label {
+		display: block;
+		font : {
+			size: 28px;
+			family: font(yekan, bold);
+			weight: bold;
+		}
+		padding: 0 15px;
+		color: color(white);
+		@include size(100%, 40px);
+	}
+
+	&__input {
+		@include clear-input;
+		@include size(100%, 60px);
+		color: color(black-30);
+		@include radius(15);
+		padding: 0 15px;
+
+		&,
+		&::placeholder {
+			font-size: 24px;
+			font-family: font(yekan, light);
+		}
+
+		&::placeholder {
+			color: color(black-50);
+		}
+	}
+
+	&__button {
+		@include clear-button;
+		color: color(white);
+		font-size: 32px;
+		font-weight: bold;
+		font-family: font(yekan, bold);
+		grid-row: 4;
+		grid-column: 1 / 13;
+		background: color(secondary);
+		@include radius(15);
+		width: 100%;
+		padding: 15px;
+	}
+}
+
+.login {
+	&--error &__field--username &__input,
+	&--error &__field--password &__input {
+		box-shadow: 0 0 0 9px #{color(accent)};
+	}
+
+	&--success &__field--username &__input,
+	&--success &__field--password &__input {
+		box-shadow: 0 0 0 9px #2a9d8f;
+	}
+}

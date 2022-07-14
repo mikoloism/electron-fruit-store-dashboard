@@ -1,0 +1,25 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Launch Electron App",
+			"type": "shell",
+			"command": "npm run watch"
+		},
+		{
+			"label": "Install NPM Package",
+			"type": "shell",
+			"command": "npm install"
+		},
+		{
+			"label": "Compile Sass Stylesheets",
+			"type": "shell",
+			"command": "npm run sass:watch"
+		},
+		{
+			"label": "Clear PORT environment",
+			"type": "shell",
+			"command": "sudo kill -9 $(sudo lsof -t -i:3000)"
+		}
+	]
+}

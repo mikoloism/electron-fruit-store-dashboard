@@ -1,0 +1,39 @@
+@import '../_global.scss';
+
+// include partial and components
+@include \$components\$header;
+@include \$components\$cart($hasButton: true);
+
+#fruit-page {
+	@include \$components\$cart-wrapper;
+}
+
+.option {
+	@include clear-list;
+	@include flex(column);
+	place-content: center;
+	place-items: center;
+	justify-content: space-around;
+	@include size(55px, 155px);
+	@include fixed($right: 15px, $bottom: 15px);
+	padding: 5px;
+	margin: 5px;
+
+	&__item,
+	&__link,
+	&__icon {
+		@include flex;
+		place-content: center;
+		place-items: center;
+		@include size($tog: 45px);
+	}
+
+	&__link {
+	}
+
+	&__icon {
+		@include radius;
+		background: color(secondary);
+		color: color(primary);
+	}
+}

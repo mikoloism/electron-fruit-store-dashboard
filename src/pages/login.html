@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Login</title>
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="/static/css/font-awesome/font-awesome.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="/static/css/pages/login.css"
+		/>
+	</head>
+	<body>
+		<figure class="logo login__logo logo--login">
+			<img
+				class="logo__image"
+				src="/static/assets/images/logo.png"
+				alt="logo"
+			/>
+			<figcaption style="display: none"></figcaption>
+		</figure>
+		<form class="login" id="login-form">
+			<fieldset class="login__content">
+				<legend style="display: none">ورود کاربر</legend>
+				<strong class="login__title">ورود کاربر</strong>
+
+				<label class="login__field login__field--username">
+					<span class="login__label"> نام کاربری </span>
+					<input
+						type="text"
+						id="login-username"
+						class="login__input login__input--username"
+						placeholder="نام کاربری"
+					/>
+				</label>
+				<label class="login__field login__field--password">
+					<span class="login__label"> گذرواژه </span>
+					<input
+						type="password"
+						id="login-password"
+						class="login__input login__input--password"
+						placeholder="گذرواژه"
+					/>
+				</label>
+				<button type="submit" id="login-button" class="login__button">
+					ورود
+				</button>
+			</fieldset>
+		</form>
+		<script src="/static/js/jquery/dist/jquery.js"></script>
+		<script type="module" src="/static/js/renderer.js"></script>
+	</body>
+</html>

@@ -1,0 +1,74 @@
+@mixin \$components\$header\$navigation {
+	@include center;
+	@include size(100%, 75px);
+	@include clear-space;
+
+	&__list {
+		@include relative;
+		@include size;
+		@include clear-list;
+		@include flex;
+		place-content: center;
+		place-items: center;
+	}
+
+	&__item {
+		@include flex;
+		place: {
+			content: center;
+			items: center;
+		}
+		@include size(20%, 100%);
+		z-index: 5;
+	}
+
+	&__handle {
+		@include flex;
+		place-content: center;
+		place-items: center;
+		@include absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		@include size(20%, 100%);
+		z-index: 2;
+		--color-handle: #{color(secondary)};
+
+		&__inner {
+			background: color(handle);
+			@include size($tog: 80%);
+			@include radius(18);
+		}
+	}
+
+	&__item--active &__link {
+		color: color(white);
+		background: color(secondary);
+
+		@include radius(18);
+	}
+
+	$const-size: 20;
+	@for $index from 1 to 6 {
+		&__item--active:nth-of-type(#{$index}) ~ &__handle {
+			left: unquote('#{($const-size * $index) - 20}%');
+		}
+	}
+	@for $index from 1 to 6 {
+		&__item:nth-of-type(#{$index}):not(&__item--active):hover ~ &__handle {
+			left: unquote('#{($const-size * $index) - 20}%');
+			--color-handle: #{color(secondary-25)};
+		}
+	}
+
+	&__link {
+		@include center;
+		text-decoration-line: none;
+		color: color(secondary);
+		@include size($tog: 80%);
+		font: {
+			size: 24px;
+			family: font(yekan, regular);
+		}
+	}
+}

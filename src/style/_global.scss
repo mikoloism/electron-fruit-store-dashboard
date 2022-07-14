@@ -1,0 +1,24 @@
+@import './../../node_modules/@yek/sass/dist/index.scss';
+
+// initial root and clear base view
+@include clear-root;
+
+// import helpers, base and prebuilt style file
+@import './base/_colors.scss';
+@import './base/_fonts.scss';
+
+// import components (navigation, buttons, etc.)
+@import './components/_logo.scss';
+@import './components/_navigation.scss';
+@import './components/_header_avatar.scss';
+@import './components/_header.scss';
+@import './components/_cart.scss';
+@import './components/_cart_wrapper.scss';
+
+// create full-view body on page
+body {
+	@include size(100vw, 100vh);
+	background: color(primary);
+	overflow: hidden;
+	font-family: font(yekan, regular);
+}
